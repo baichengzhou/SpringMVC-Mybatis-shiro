@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="
+    		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.0.xsd
+			http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.0.xsd
+			http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.0.xsd
+			http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-4.0.xsd
+			http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.0.xsd"
+	default-lazy-init="false">
+		
+	 <bean id="jedisPoolConfig" class="redis.clients.jedis.JedisPoolConfig">
+        <property name="maxIdle" value="100"/><!-- 最大闲置 -->
+        <property name="minIdle" value="10"/><!-- 最小闲置 -->
+        <property name="maxWaitMillis" value="5000"/><!-- 最大等待 -->
+        <property name="testOnBorrow" value="true"/><!-- 可以获取 -->
+<!--        <property name="testOnReturn" value="true"/>-->
+    </bean>
+
+	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+		<constructor-arg index="0" ref="jedisPoolConfig"/>
+	    <constructor-arg index="2" value="6379"/><!-- 端口 -->
+	    <constructor-arg index="3" value="5000"/><!-- 超时 -->
+	    <constructor-arg index="1" value="127.0.0.1"/><!--Redis IP地址 -->
+	</bean>
+	
+</beans>
