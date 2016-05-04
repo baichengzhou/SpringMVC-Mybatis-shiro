@@ -31,12 +31,6 @@ public class LoginFilter  extends AccessControlFilter {
 		
 		Subject subject = getSubject(request, response);
 		if(token!=null || isLoginRequest(request, response)){// && isEnabled()
-			if ("XMLHttpRequest".equalsIgnoreCase(hrequest.getHeader("X-Requested-With"))) {// ajax请求
-			  resultMap.put("login_status", "100");
-   			  resultMap.put("message", "当前用户已经被禁止！");
-			}else{
-				 return false ;
-			}
             return true;
         } else {
             if(null == token){

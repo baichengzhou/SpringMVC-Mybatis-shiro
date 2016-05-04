@@ -23,8 +23,8 @@ import com.sojson.user.service.SOUserService;
 
 /**
  * 
- * 开发公司：WENYIFAN.NET<br/>
- * 版权：WENYIFAN.NET<br/>
+ * 开发公司：sojson.com<br/>
+ * 版权：sojson.com<br/>
  * <p>
  * 
  * <p>

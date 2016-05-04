@@ -23,7 +23,7 @@
         <!--cookie的有效时间 -->
         <property name="maxAge" value="-1"/>
         <!-- 配置存储Session Cookie的domain为 一级域名 -->
-        <property name="domain" value=".sojson.com"/>
+        <property name="domain" value=".itboy.net"/>
     </bean>
     <!-- custom shiro session listener -->
     <bean id="customSessionListener" class="com.sojson.core.shiro.listenter.CustomSessionListener">
@@ -34,7 +34,7 @@
         <constructor-arg value="v_v-re-baidu"/>
         <property name="httpOnly" value="true"/>
         <!-- 配置存储rememberMe Cookie的domain为 一级域名 -->
-        <property name="domain" value=".sojson.com"/>
+        <property name="domain" value=".itboy.net"/>
         <property name="maxAge" value="2592000"/><!-- 30天时间，记住我30天 -->
     </bean>
 
@@ -129,7 +129,7 @@
 	
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
-		<property name="loginUrl" value="/user/open/toLogin.shtml" />
+		<property name="loginUrl" value="/u/login.shtml" />
 		<!--	TODO 待提取	-->
 		<property name="successUrl" value="/" />
 		<property name="unauthorizedUrl" value="/?login" />

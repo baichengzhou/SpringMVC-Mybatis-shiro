@@ -326,8 +326,8 @@
 	    <script type="text/javascript" color="47,135,193" opacity='0.5' zIndex="-2" count="200" src="${cdn}/js/common/canvas-nest.min.js"></script>
     </#if>
     <div  class="fixed"> 
-	 	<a id="top_ishow"class="top " style="visibility: visible;" href="javascript:void(0);" onmousemove="layer.tips('返回顶部 go ~', $(this), {tips: [2, '#2f87c1']});"><i class="glyphicon glyphicon-chevron-up" style="top: -3px;"></i></a> 
-		<a class="feeback" href="http://www.sojson.com/message.html"  rel="nofollow noindex"  onmousemove="layer.tips('有意见就说吧', $(this), {tips: [2, '#2f87c1']});" target="_blank">反馈意见</a> 
+	 	<a id="top_ishow"class="top " style="visibility: visible;" href="javascript:void(0);" onmouseover="layer.tips('返回顶部 go ~', $(this), {tips: [2, '#2f87c1']});"><i class="glyphicon glyphicon-chevron-up" style="top: -3px;"></i></a> 
+		<a class="feeback" href="http://www.sojson.com/message.html"  rel="nofollow noindex"  onmouseover="layer.tips('有意见就说吧', $(this), {tips: [2, '#2f87c1']});" target="_blank">反馈意见</a> 
 	</div>
 	
 	<div class="u-click-right-wrap" id="smohan-right-click" style="display: none;">
@@ -375,13 +375,13 @@
 		<div class="bottom_div">&nbsp;</div>
 		<div class="bottom_main">
 			<span class="bottom_con" style="font-size:38px;color:#6DBFBB;">
-					<a href="http://www.sojson.com/room.html" onmousemove="layer.tips('Nodejs + socket Demo', $(this), {tips: [1, '#78BA32']});" class="btn btn-success">Nodejs + socket Demo</a>
-					<a id="sponsorCode" href="javascript:void(0);" onmousemove="layer.tips('赞助支持支付宝、微信二维码！', $(this), {tips: [1, '#78BA32']});" class="btn btn-success">赞助二维码</a>
-					<a href="http://www.sojson.com/subsidize.html" target="_blank" onmousemove="layer.tips('这里可以查看赞助名单哦！', $(this), {tips: [1, '#ac2925']});" class="btn btn-info">赞助名单</a>
-					<a href="javascript:void(0);" for="http://koubei.baidu.com/s/www.sojson.com" _target="_blank" rel="nofollow external"  onmousemove="layer.tips('百度口碑点个赞咯！', $(this), {tips: [1, '#ac2925']});" class="btn btn-warning">百度口碑点赞</a>
-					<a href="http://www.sojson.com/photo.html"  target="_blank"  rel="nofollow noindex" onmousemove="layer.tips('查看QQ群美女帅哥！', $(this), {tips: [1, '#ac2925']});" class="btn btn-danger ">查看QQ群美女帅哥</a>
-					<a href="javascript:void(0);" for="http://jq.qq.com/?_wv=1027&k=YpqCNd"   rel="nofollow external" _target="_blank" onmousemove="layer.tips('点击加QQ群！', $(this), {tips: [1, '#ac2925']});" class="btn btn-default">点击加QQ群</a>
-					<a href="http://www.sojson.com/music.html"  target="_blank"  rel="nofollow noindex" onmousemove="layer.tips('听音乐！', $(this), {tips: [1, '#ac2925']});" class="btn btn-default">听音乐</a>
+					<a href="http://www.sojson.com/room.html" onmouseover="layer.tips('Nodejs + socket Demo', $(this), {tips: [1, '#78BA32']});" class="btn btn-success">Nodejs + socket Demo</a>
+					<a id="sponsorCode" href="javascript:void(0);" onmouseover="layer.tips('赞助支持支付宝、微信二维码！', $(this), {tips: [1, '#78BA32']});" class="btn btn-success">赞助二维码</a>
+					<a href="http://www.sojson.com/subsidize.html" target="_blank" onmouseover="layer.tips('这里可以查看赞助名单哦！', $(this), {tips: [1, '#ac2925']});" class="btn btn-info">赞助名单</a>
+					<a href="javascript:void(0);" for="http://koubei.baidu.com/s/www.sojson.com" _target="_blank" rel="nofollow external"  onmouseover="layer.tips('百度口碑点个赞咯！', $(this), {tips: [1, '#ac2925']});" class="btn btn-warning">百度口碑点赞</a>
+					<a href="http://www.sojson.com/photo.html"  target="_blank"  rel="nofollow noindex" onmouseover="layer.tips('查看QQ群美女帅哥！', $(this), {tips: [1, '#ac2925']});" class="btn btn-danger ">查看QQ群美女帅哥</a>
+					<a href="javascript:void(0);" for="http://jq.qq.com/?_wv=1027&k=YpqCNd"   rel="nofollow external" _target="_blank" onmouseover="layer.tips('点击加QQ群！', $(this), {tips: [1, '#ac2925']});" class="btn btn-default">点击加QQ群</a>
+					<a href="http://www.sojson.com/music.html"  target="_blank"  rel="nofollow noindex" onmouseover="layer.tips('听音乐！', $(this), {tips: [1, '#ac2925']});" class="btn btn-default">听音乐</a>
 			</span>
 			<span title="关闭" onclick="$('#floatbottom').fadeOut(500);layer.closeAll();" class="bottom_close">X</span>
 		</div>
