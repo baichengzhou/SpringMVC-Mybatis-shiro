@@ -26,12 +26,6 @@ import com.sojson.core.shiro.token.ShiroToken;
  */
 public class TokenManager {
 	
-	public static final String TOKEN_KEY = "sojson_token_key";
-	
-	/*奶牛使用 start*/
-//	public static final String TOKEN = "token" ,MENU = "menu";
-	//private static Logger log = Logger.getLogger(TokenManager.class);
-	/*奶牛使用 end*/
 	/**
 	 * 获取当前登录的用户User对象
 	 * @return
@@ -92,13 +86,14 @@ public class TokenManager {
 	
 	
 	/**
-	 * 获取当前用户的roles
+	 * 登录
+	 * @param user
+	 * @param rememberMe
 	 * @return
 	 */
-	
-	public static SOUser login(SOUser user){
+	public static SOUser login(SOUser user,Boolean rememberMe){
 		ShiroToken token = new ShiroToken(user.getEmail(), user.getPassword());
-		token.setRememberMe(Boolean.TRUE);
+		token.setRememberMe(rememberMe);
 		SecurityUtils.getSubject().login(token);
 		return getToken();
 	}

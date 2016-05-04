@@ -37,7 +37,11 @@ public class UserCoreController extends BaseController {
 	@RequestMapping(value="index",method=RequestMethod.GET)
 	public ModelAndView userIndex(){
 		
+		return new ModelAndView("user/index");
+	}
+	@RequestMapping(value="login",method=RequestMethod.GET)
+	public ModelAndView login(){
 		
-		return new ModelAndView();
+		return new ModelAndView("user/login");
 	}
 }
