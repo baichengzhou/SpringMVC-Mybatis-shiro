@@ -142,13 +142,11 @@
 				<prop key="number_format">#</prop>
 				<prop key="whitespace_stripping">true</prop>
 				<prop key="auto_import">
-					
 					/common/config/top.ftl as _top,
 					/common/config/left.ftl as _left,
 					/common/config/html.ftl as _html,
 					/common/config/bottom.ftl as _footer,
 					/common/config/menu.ftl as _menu
-					
 				</prop>
 			</props>
 		</property>

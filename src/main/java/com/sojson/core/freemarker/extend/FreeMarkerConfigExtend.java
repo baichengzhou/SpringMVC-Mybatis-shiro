@@ -24,17 +24,7 @@ public class FreeMarkerConfigExtend extends FreeMarkerConfigurer {
 		cfg.setNumberFormat("#");//防止页面输出数字,变成2,000
 	}
 	public static void putInitShared(Configuration cfg) throws TemplateModelException{
-		 //shiro
+		//shiro
         put(cfg,"shiro", new ShiroTags()); 
-//        //截串
-//        put(cfg,"FSubStr", new FSubStr()); 
-//        //选择
-//        put(cfg,"Option", new Option()); 
-//        //随机数
-//        put(cfg,"Random", new RandomNumber()); 
-//        //获取缓存里的数据
-//        put(cfg,"GetCache", new GetCache()); 
-//        //格式化时间
-//        put(cfg,"fmt_date", new HistoryDate()); 
 	}
 }

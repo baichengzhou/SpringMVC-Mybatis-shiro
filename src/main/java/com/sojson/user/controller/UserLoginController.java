@@ -87,4 +87,22 @@ public class UserLoginController extends BaseController {
 		
 		return new ModelAndView("user/register");
 	}
+	
+	/**
+	 * 退出
+	 * @return
+	 */
+	@RequestMapping(value="logout",method =RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> logout(){
+		try {
+			TokenManager.logout();
+			resultMap.put("status", 200);
+		} catch (Exception e) {
+			resultMap.put("status", 500);
+			logger.error("errorMessage:" + e.getMessage());
+			e.printStackTrace();
+		}
+		return resultMap;
+	}
 }

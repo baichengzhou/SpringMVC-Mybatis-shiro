@@ -1,5 +1,8 @@
-<@_html.head/>
-		<title>${user.nickname} —个人中心 —SO JSON 在线工具（sojson.com）</title>
+<!DOCTYPE html>
+<html lang="zh-cn">
+	<head>
+		<meta charset="utf-8" />
+		<title>${token.nickname} —个人中心</title>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<link   rel="icon" href="http://img.wenyifan.net/images/favicon.ico" type="image/x-icon" />
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
@@ -8,58 +11,25 @@
 		<link href="${cdn}/css/common/base.css?${_v}" rel="stylesheet"/>
 		<script  src="${cdn}/js/common/sojson.core.min.js?${_v}"></script>
 		<script  src="${cdn}/js/layer/layer.js"></script>
-		<script  src="${cdn}/js/common/sojson.js?${_v}"></script>
 		<script  src="${cdn}/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script >
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
 		
-		
-		
-	<@_top.top 7/>
+		<@_top.top 8/>
 		
 		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
 			<div class="row">
-				<@admin_left.index 1/>
+				<@_left.index 1/>
 				<div class="col-md-10">
 					<h2>个人中心</h2>
 					<hr>
 					<form id="formId" enctype="multipart/form-data" action="/user/update.shtml" method="post">
-						  <input type="hidden" value="${user.id}" name="id"/>
+						  <input type="hidden" value="${token.id}" name="id"/>
 						  <div class="form-group">
 						    <label for="nickname">昵称</label>
-						    <input type="text" class="form-control" autocomplete="off" id="nickname" maxlength="8" name="nickname" value="${user.nickname?default('未设置')}" placeholder="请输入昵称">
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputPassword1">职业</label>
-						    <input type="text" class="form-control" maxlength="16" autocomplete="off" id="job" value="${user.job?default('')}" name="job" placeholder="请输入职业信息">
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputPassword1">现居</label>
-						    <input type="text" class="form-control" id="address" autocomplete="off" maxlength="16" value="${user.address?default('')}" name="address" placeholder="请输入现住地址，如：帝都，魔都">
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputPassword1">个人介绍</label>
-						    <textarea type="text" class="form-control" i maxlength="250" autocomplete="off" id="intro" name="intro" placeholder="请输入个人介绍，如：本人学识渊博、经验丰富，代码风骚、效率恐怖，c/c++、java、php无不精通，熟练掌握各种框架，深山苦练20余年，一天只睡4小时，电话通知出bug后秒登vpn，千里之外定位问题，瞬息之间修复上线。">${user.intro?default('')}</textarea>
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputPassword1">QQ号码</label>
-						    <input type="text" class="form-control" id="qq" autocomplete="off" maxlength="11" value="${user.qq?default('')}" name="qq" placeholder="输入本人QQ号码，方便及时沟通。">
-						     <p class="help-block">非必填，方便你发布文章后，其他人看到文章和你直接联系，探讨问题。</p>
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputPassword1">关于我.（如：<a href="http://www.sojson.com/aboutsoso" target="_blank">soso的主页</a>）</label>
-						    <input type="text" class="form-control" id="link" autocomplete="off" maxlength="256" value="${user.link?default('')}" name="link" placeholder="输入本人主页地址。">
-						  	<p class="help-block">可以自定义一个页面，可以和站长提交页面。</p>
-						  </div>
-						  <div class="form-group">
-						    <label for="exampleInputFile">头像</label>
-						    <div class="form-group">
-							    <img id="portrait" src="${user.portrait?default('')}" style="max-width: 500px;"/>
-							    <input type="file" name="portraitFile" id="portraitFile">
-							</div>
-						    <p class="help-block">头像支持<code>png,jpg,gif等图片类型</code>。大小限制为<code>1MB</code>以下。宽不低于：<code>95px</code>，高不低于：<code>125px</code>。</p>
+						    <input type="text" class="form-control" autocomplete="off" id="nickname" maxlength="8" name="nickname" value="${token.nickname?default('未设置')}" placeholder="请输入昵称">
 						  </div>
 						  <div class="form-group">
 							  <button type="submit" class="btn btn-success">保存信息</button>
@@ -72,9 +42,9 @@
 				-->
 			</div><#--/row-->
 		</div>
-		<#-- 页脚-->
+		<#-- 页脚
 		<@_footer.footer 0/>
-		
+		-->
 		<script src="${cdn}/js/common/jquery/jquery.form-2.82.js?${_v}"></script>
 		<script>
 			$(function(){
