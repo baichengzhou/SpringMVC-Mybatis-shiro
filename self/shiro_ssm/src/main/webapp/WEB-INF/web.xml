@@ -67,7 +67,7 @@
 		<url-pattern>*.shtml</url-pattern>
 	</servlet-mapping>
 	<welcome-file-list>
-		<welcome-file>index.shtml</welcome-file>
+		<welcome-file>/user/index.shtml</welcome-file>
 	</welcome-file-list>
 	<error-page>
 		<error-code>404</error-code>

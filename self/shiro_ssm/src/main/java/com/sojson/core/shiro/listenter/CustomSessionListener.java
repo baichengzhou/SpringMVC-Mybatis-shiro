@@ -10,12 +10,17 @@ public class CustomSessionListener implements SessionListener {
 
     private ShiroSessionRepository shiroSessionRepository;
 
+    /**
+     * 一个回话的生命周期开始
+     */
     @Override
     public void onStart(Session session) {
         //TODO
         System.out.println("on start");
     }
-
+    /**
+     * 一个回话的生命周期结束
+     */
     @Override
     public void onStop(Session session) {
         //TODO

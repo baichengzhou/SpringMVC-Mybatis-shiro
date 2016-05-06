@@ -19,7 +19,7 @@ import com.sojson.common.utils.SerializeUtil;
  * 版权：sojson.com<br/>
  * <p>
  * 
- * Redis Manager
+ * Redis Manager Utils
  * 
  * <p>
  * 

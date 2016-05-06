@@ -17,7 +17,6 @@ public class FreeMarkerViewExtend extends FreeMarkerView {
 	//右键开关
 	final static  String OFFKey = "RIGHT_MENU_OFF";
 	
-	@SuppressWarnings("unchecked")
 	protected void exposeHelpers(Map<String, Object> model, HttpServletRequest request){
 		
 		try {
@@ -29,29 +28,7 @@ public class FreeMarkerViewExtend extends FreeMarkerView {
 		model.put(Constant.CONTEXT_PATH, request.getContextPath());
 		model.putAll(Ferrmarker.initMap);
 		SOUser token = TokenManager.getToken();
-//		if(null != token && token.getId() != null){
-//			model.put("id", token.getId());
-//		}
-		
 		//String ip = IPUtils.getIP(request);
-		
-		//特效是否禁止
-		Object texiao = CookieUtil.findCookieByName(request, "_texiao");
-		if(StringUtils.isBlank(texiao)){
-			texiao = Boolean.TRUE;
-		}else{
-			texiao = Boolean.parseBoolean((String)texiao);
-		}
-		model.put("_texiao", texiao);
-		
-		//是否显示禁止右键和保存
-		String key = VCache.get(OFFKey, String.class);
-		if(StringUtils.isNotBlank(key)){
-			model.put("off", key);
-		}else{
-			model.put("off", "open");
-		}
-		
 		model.put("token", token);
 		model.put("_time", new Date().getTime());
 		model.put("NOW_YEAY", Constant.NOW_YEAY);
