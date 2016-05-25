@@ -29,13 +29,6 @@
 	    	 <i class="glyphicon glyphicon-chevron-right"></i>广告管理
 	      </a>
 	  </li>
-	  <#--
-	  <li class="${(index==3)?string('active',' ')}">
-	      <a href="http://www.sojson.com/admin/demo/index.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>Demo管理
-	      </a>
-	  </li>
-	  -->
 	</ul>
 </div>
 </#macro>
