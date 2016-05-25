@@ -6,7 +6,7 @@ function logout(){
 		if(result && result.status == 200){
 			$(".qqlogin").html('').next('ul').remove();
 			layer.msg('退出成功');
-			$.refresh(window.location.href);
+			window.location.reload(true);
 			return !1;
 		}else{
 			layer.msg('退出失败，重试！');

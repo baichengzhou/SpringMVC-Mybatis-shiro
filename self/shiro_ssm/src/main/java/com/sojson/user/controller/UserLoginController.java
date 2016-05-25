@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.SOUser;
+import com.sojson.common.model.UUser;
 import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.user.service.SOUserService;
 
@@ -57,6 +58,11 @@ public class UserLoginController extends BaseController {
 	 */
 	@RequestMapping(value="register",method=RequestMethod.GET)
 	public ModelAndView register(){
+		
+		return new ModelAndView("user/register");
+	}
+	@RequestMapping(value="subRegister",method=RequestMethod.GET)
+	public ModelAndView subRegister(String vcode,UUser entity){
 		
 		return new ModelAndView("user/register");
 	}
