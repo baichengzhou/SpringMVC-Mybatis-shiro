@@ -22,6 +22,8 @@ public class VerifyCodeUtils{
   
     //使用到Algerian字体，系统里没有的话需要安装字体，字体只显示大写，去掉了1,0,i,o几个容易混淆的字符  
     public static final String VERIFY_CODES = "23456789ABCDEFGHJKLMNPQRSTUVWXYZ";  
+    //验证码的Key
+    public static final String V_CODE = "_CODE";
     private static Random random = new Random();  
   
     
@@ -79,7 +81,15 @@ public class VerifyCodeUtils{
      * 清除验证码
      */
     public static void clearVerifyCode(){
-    	TokenManager.getSession().removeAttribute(VERIFY_CODES);
+    	TokenManager.getSession().removeAttribute(V_CODE);
+    }
+    
+    /**
+     * 对比验证码   
+     */
+    public static boolean verifyCode(String code){
+    	String v = (String)TokenManager.getVal2Session(V_CODE);
+    	return StringUtils.equals(v, StringUtils.lowerCase(code));
     }
     
     /** 

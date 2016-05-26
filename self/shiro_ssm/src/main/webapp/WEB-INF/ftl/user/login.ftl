@@ -82,9 +82,11 @@
 			            });
 			            return false;
 			        }
-			        var password = MD5(username +"#" + password),
-			        	data = {password:password,email:username,rememberMe:$("#rememberMe").is(':checked')};
+			        var pswd = MD5(username +"#" + password),
+			        	data = {pswd:pswd,email:username,rememberMe:$("#rememberMe").is(':checked')};
+			        var load = layer.load();
 			        $.post("/u/submitLogin.shtml",data ,function(result){
+			        	layer.close(load);
 			    		if(result && result.status != 200){
 			    			layer.msg(result.message,function(){});
 			    			$('.password').val('');

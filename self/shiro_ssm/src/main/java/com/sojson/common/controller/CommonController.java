@@ -84,7 +84,7 @@ public class CommonController extends BaseController {
 	        //生成随机字串  
 	        String verifyCode = VerifyCodeUtils.generateVerifyCode(4);  
 	        //存入Shiro会话session  
-	        TokenManager.setVal2Session("_code", verifyCode.toLowerCase());  
+	        TokenManager.setVal2Session(VerifyCodeUtils.V_CODE, verifyCode.toLowerCase());  
 	        //生成图片  
 	        int w = 146, h = 33;  
 	        VerifyCodeUtils.outputImage(w, h, response.getOutputStream(), verifyCode); 
@@ -115,7 +115,7 @@ public class CommonController extends BaseController {
 	        out.flush();
 	       //存入Shiro会话session  
 	        System.out.println( captcha.text().toLowerCase());
-	        TokenManager.setVal2Session("_code", captcha.text().toLowerCase());  
+	        TokenManager.setVal2Session(VerifyCodeUtils.V_CODE, captcha.text().toLowerCase());  
 		} catch (Exception e) {
 			LoggerUtils.fmtError(getClass(),e, "获取验证码异常：%s",e.getMessage());
 		}

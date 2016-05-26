@@ -3,6 +3,7 @@ package com.sojson.core.shiro.cache;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import org.apache.shiro.session.Session;
 
@@ -135,10 +136,10 @@ public class JedisManager {
             Set<byte[]> byteKeys = jedis.keys((JedisShiroSessionRepository.REDIS_SHIRO_ALL).getBytes());  
             if (byteKeys != null && byteKeys.size() > 0) {  
                 for (byte[] bs : byteKeys) {  
-                     Object obj = SerializeUtil.deserialize(jedis.get(bs),  
-                            Object.class);  
+                	Session obj = SerializeUtil.deserialize(jedis.get(bs),  
+                    		 Session.class);  
                      if(obj instanceof Session){
-                    	 sessions.add((Session)obj);  
+                    	 sessions.add(obj);  
                      }
                 }  
             }  
