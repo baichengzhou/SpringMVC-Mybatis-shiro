@@ -15,40 +15,31 @@
 	     		<a id="_logo"  href="http://www.sojson.com/" style="color:#fff; font-size: 24px;" class="navbar-brand hidden-sm">SSM + Shiro Demo 演示</a>
 	          <ul class="nav navbar-nav" id="topMenu">
 				<li class="dropdown ${(index==1)?string('active','')}">
-					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="http://www.sojson.com/">
-						JSON 相关<span class="caret"></span>
+					<a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="/user/index.shtml">
+						个人中心<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="http://www.sojson.com/">JSON格式化</a></li>
-						<li><a open="new_json" old_url="" href="http://www.sojson.com/simple_json.html" target="_blank" style="color:#c7254e">JSON格式化 （new）</a></li>
-						<li><a href="http://www.sojson.com/json/"style="color:#c7254e">JSON 教程</a></li>
-						<li><a href="http://www.sojson.com/yasuo.html">JSON压缩/转义</a></li>
-						<li><a href="http://www.sojson.com/editor.html">JSON在线示图</a></li>
-						<li><a href="http://www.sojson.com/jsonfmt.html">JSON着色工具</a></li>
-						<li><a href="http://www.sojson.com/json2xml/">JSON | XML互转</a></li>
-						<li><a href="http://www.sojson.com/contrastjson.html" target="_blank">JSON 比对工具</a></li>
-						<li><a href="http://www.sojson.com/simple_json_beta.html" target="_blank">JSON格式化</a></li>
-						<li><a   style="color:#c7254e" href="http://www.sojson.com/json2entity.html"  target="_blank">JSON生成实体</a></li>
-						<li><a href="http://www.sojson.com/enjson.html" target="_blank">JSON Check for English</a></li>
+						<li><a href="/user/index.shtml">个人资料</a></li>
+						<li><a href="/user/updateSelf.shtml" target="_blank">资料修改</a></li>
+						<li><a href="/user/updatePswd.shtml" target="_blank">密码修改</a></li>
+						<li><a href="/permission/mypermission.shtml" target="_blank">我的权限</a></li>
 					</ul>
 				</li>	            
 				<li class="dropdown ${(index==2)?string('active','')}">
+					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="/member/list.shtml">
+						用户中心<span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						<li><a href="/member/list.shtml">用户列表</a></li>
+						<li><a href="/member/online.shtml">在线用户</a></li>
+					</ul>
+				</li>	            
+				<li class="dropdown ${(index==3)?string('active','')}">
 					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="http://www.sojson.com/encrypt.html">
-						解码 / 加密<span class="caret"></span>
+						权限管理<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="http://www.sojson.com/encrypt.html">加密 / 加密</a></li>
-						<li><a href="http://www.sojson.com/hash.html">散列 / 哈希</a></li>
-						<li><a href="http://www.sojson.com/base64.html">Base64加密 / 解密</a></li>
-						<li><a href="http://www.sojson.com/image2base64.html">图片转BASE64</a></li>
-						<li><a href="http://www.sojson.com/hexconvert.html">进制转换</a></li>
-						<li><a href="http://www.sojson.com/encodeurl.html">URL转码</a></li>
-						<li><a href="http://www.sojson.com/ascii.html">ASCII转换</a></li>
-						<li><a href="http://www.sojson.com/utf8.html">UTF-8编码转换</a></li>
-						<#--<li><a href="http://www.sojson.com/unicode.html">Unicode编码转换</a></li>-->
-						<li><a href="http://www.sojson.com/htpasswd.html">htpasswd生成器</a></li>
-						<li><a href="http://www.sojson.com/md5/">MD5加密</a></li>
-						<li><a href="http://www.sojson.com/thunder/">迅雷|快车|旋风URL加/解密</a></li>
 					</ul>
 				</li>	            
 	          </ul>

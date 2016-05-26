@@ -30,11 +30,11 @@
             <h1>Register</h1>
             <form id="_form" action="" method="post">
                 <input type="text" name="nickname" id="nickname" class="username" placeholder="Nickname">
-                <input type="text" name="account"  id="account" placeholder="Account">
-                <input type="password" name="password" id="password" class="password" placeholder="Password">
+                <input type="text" name="email"  id="email" placeholder="Email Account">
+                <input type="password" name="pswd" id="password" class="password" placeholder="Password">
                 <input type="password" id="re_password"  placeholder="Repeat the password">
                 <div style="text-align: left; margin-left: 10px;" id="vcode">
-	                <input type="text" name="vcode" id="vcode"  placeholder="Verification code" style="width: 110px; margin-left: -8px; margin-right: 8px;">
+	                <input type="text" name="vcode"   placeholder="Verification code" style="width: 110px; margin-left: -8px; margin-right: 8px;">
                 	<img src="/open/getGifCode.shtml" />
                 </div>
                 <button type="button" class="register">Register</button>
@@ -53,16 +53,18 @@
 			jQuery(document).ready(function() {
 				//验证码
 				$("#vcode").on("click",'img',function(){
+					/**动态验证码，改变地址，多次在火狐浏览器下，不会变化的BUG，故这样解决*/
 					var i = new Image();
 					i.src = '/open/getGifCode.shtml?'  + Math.random();
 					$(i).replaceAll(this);
 					//$(this).clone(true).attr("src",'/open/getGifCode.shtml?'  + Math.random()).replaceAll(this);
 				});
 			    $('.register').click(function(){
-			    	var form = $(this);
+			    	var form = $('#_form');
 			    	var error= form.find(".error");
 			    	var tops = ['27px','96px','165px','235px','304px','372px'];
 			    	var inputs = $("form :text,form :password");
+			    	console.log(inputs.length)
 			    	for(var i=0;i<inputs.length;i++){
 			    		var self = $(inputs[i]);
 			    		if(self.val() == ''){
@@ -72,21 +74,25 @@
 				            error.fadeIn('fast', function(){
 				               self.focus();
 				            });
-				            return false;
+				            return !1;
 			    		}
 			    	}
 			    	var re_password = $("#re_password").val();
 			    	var password = $("#password").val();
 			    	if(password != re_password){
-			    		layer.msg('2次密码输出不一样',function(){});
-			    		return false;
+			    		return layer.msg('2次密码输出不一样！',function(){}),!1;
 			    	}
+			    	
+			    	if($('[name=vcode]').val().length !=4){
+			    		return layer.msg('验证码的长度为4位！',function(){}),!1;
+			    	}
+			    	var load = layer.load();
 			    	$.post("/u/subRegister.shtml",$("#_form").serialize() ,function(result){
+			    		layer.close(load);
 			    		if(result && result.status!= 200){
-			    			layer.msg(result.message,function(){});
-			    			return;
+			    			return layer.msg(result.message,function(){}),!1;
 			    		}else{
-			    			layer.msg('登录成功！' );
+			    			layer.msg('注册成功！' );
 			    			window.location.href= result.back_url || "/";
 			    		}
 			    	},"json");
@@ -95,7 +101,7 @@
 			    $("form :text,form :password").keyup(function(){
 			        $(this).parent().find('.error').fadeOut('fast');
 			    });
-			    
+			    //跳转
 			    $("#login").click(function(){
 			    	window.location.href="login.shtml";
 			    });

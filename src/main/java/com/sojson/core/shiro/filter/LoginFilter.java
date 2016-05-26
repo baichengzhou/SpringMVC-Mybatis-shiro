@@ -15,7 +15,7 @@ import net.sf.json.JSONObject;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
 
-import com.sojson.common.model.SOUser;
+import com.sojson.common.model.UUser;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.shiro.token.manager.TokenManager;
 
@@ -27,14 +27,14 @@ public class LoginFilter  extends AccessControlFilter {
 		HttpServletResponse hresponse = (HttpServletResponse)response;
 		HttpServletRequest hrequest = (HttpServletRequest)request;		
 		Map<String,String> resultMap = new HashMap<String, String>();
-		SOUser token = TokenManager.getToken();
+		UUser token = TokenManager.getToken();
 		
 		Subject subject = getSubject(request, response);
 		if(token!=null || isLoginRequest(request, response)){// && isEnabled()
             return true;
         } else {
             if(null == token){
-            	token = (SOUser) subject.getPrincipal();
+            	token = (UUser) subject.getPrincipal();
             	  if(token != null){
       				if ("XMLHttpRequest".equalsIgnoreCase(hrequest.getHeader("X-Requested-With"))) {// ajax请求
       				  resultMap.put("login_status", "100");

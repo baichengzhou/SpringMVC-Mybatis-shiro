@@ -19,11 +19,11 @@
     delete from u_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.sojson.common.model.UPermission" >
+  <insert id="insert" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.UPermission" >
     insert into u_permission (id, url, name)
     values (#{id,jdbcType=BIGINT}, #{url,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.sojson.common.model.UPermission" >
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="id" parameterType="com.sojson.common.model.UPermission" >
     insert into u_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >

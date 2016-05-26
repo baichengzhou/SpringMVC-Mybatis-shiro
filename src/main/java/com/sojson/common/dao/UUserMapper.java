@@ -1,5 +1,7 @@
 package com.sojson.common.dao;
 
+import java.util.Map;
+
 import com.sojson.common.model.UUser;
 
 public interface UUserMapper {
@@ -14,4 +16,8 @@ public interface UUserMapper {
     int updateByPrimaryKeySelective(UUser record);
 
     int updateByPrimaryKey(UUser record);
+
+	UUser login(Map<String, Object> map);
+
+	UUser findUserByEmail(String email);
 }

@@ -1,7 +1,6 @@
 package com.sojson.core.shiro.token;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.Date;
 
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
@@ -17,8 +16,8 @@ import org.apache.shiro.subject.SimplePrincipalCollection;
 import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.sojson.common.model.SOUser;
-import com.sojson.user.service.SOUserService;
+import com.sojson.common.model.UUser;
+import com.sojson.user.service.UUserService;
 
 
 /**
@@ -42,7 +41,7 @@ import com.sojson.user.service.SOUserService;
 public class SampleRealm extends AuthorizingRealm {
 
 	@Autowired
-	SOUserService userService;
+	UUserService userService;
 	
 	public SampleRealm() {
 		super();
@@ -54,11 +53,15 @@ public class SampleRealm extends AuthorizingRealm {
 			AuthenticationToken authcToken) throws AuthenticationException {
 		
 		ShiroToken token = (ShiroToken) authcToken;
-		SOUser user = userService.findLogin(token.getUsername(),token.getPswd());
+		UUser user = userService.login(token.getUsername(),token.getPswd());
 		if(null == user){
 			throw new AccountException("帐号或密码不正确！");
+		}else{
+			//更新登录时间 last login time
+			user.setLastLoginTime(new Date());
+			userService.updateByPrimaryKeySelective(user);
 		}
-		return new SimpleAuthenticationInfo(user,user.getPassword(), getName());
+		return new SimpleAuthenticationInfo(user,user.getPswd(), getName());
     }
 
 	 /** 
@@ -67,11 +70,11 @@ public class SampleRealm extends AuthorizingRealm {
     @Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {  
     	Subject currentUser = SecurityUtils.getSubject();
-    	SOUser user = (SOUser) currentUser.getPrincipal();
-    	Set<String> roles = new TreeSet<String>();
-    	roles.add("role:" + user.getLevel());
+//    	UUser user = (UUser) currentUser.getPrincipal();
+//    	Set<String> roles = new TreeSet<String>();
+//    	roles.add("role:" + user.getLevel());
 		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
-		info.setRoles(roles);
+//		info.setRoles(roles);
         return info;  
     }  
     /** 

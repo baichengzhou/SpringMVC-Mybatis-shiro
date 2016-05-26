@@ -3,7 +3,7 @@ package com.sojson.core.shiro.token.manager;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 
-import com.sojson.common.model.SOUser;
+import com.sojson.common.model.UUser;
 import com.sojson.core.shiro.token.ShiroToken;
 
 
@@ -30,8 +30,8 @@ public class TokenManager {
 	 * 获取当前登录的用户User对象
 	 * @return
 	 */
-	public static SOUser getToken(){
-		SOUser token = (SOUser)SecurityUtils.getSubject().getPrincipal();
+	public static UUser getToken(){
+		UUser token = (UUser)SecurityUtils.getSubject().getPrincipal();
 		return token ;
 	}
 	
@@ -91,8 +91,8 @@ public class TokenManager {
 	 * @param rememberMe
 	 * @return
 	 */
-	public static SOUser login(SOUser user,Boolean rememberMe){
-		ShiroToken token = new ShiroToken(user.getEmail(), user.getPassword());
+	public static UUser login(UUser user,Boolean rememberMe){
+		ShiroToken token = new ShiroToken(user.getEmail(), user.getPswd());
 		token.setRememberMe(rememberMe);
 		SecurityUtils.getSubject().login(token);
 		return getToken();

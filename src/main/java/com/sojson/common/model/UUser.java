@@ -36,8 +36,18 @@ public class UUser implements Serializable{
     private Date createTime;
     /**最后登录时间*/
     private Date lastLoginTime;
+    public UUser() {
+	}
+    public UUser(UUser user) {
+		this.id = user.getId();
+		this.nickname = user.getNickname();
+		this.email = user.getEmail();
+		this.pswd = user.getPswd();
+		this.createTime = user.getCreateTime();
+		this.lastLoginTime = user.getLastLoginTime();
+	}
 
-    public Long getId() {
+	public Long getId() {
         return id;
     }
 
