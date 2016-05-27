@@ -11,23 +11,20 @@ import java.util.Set;
 
 import javax.annotation.Resource;
 
-import org.apache.log4j.Logger;
 import org.apache.shiro.spring.web.ShiroFilterFactoryBean;
 import org.apache.shiro.web.filter.mgt.DefaultFilterChainManager;
 import org.apache.shiro.web.filter.mgt.PathMatchingFilterChainResolver;
 import org.apache.shiro.web.servlet.AbstractShiroFilter;
 import org.springframework.core.io.ClassPathResource;
 
+import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.core.shiro.service.ShiroManager;
 
 public class ShiroManagerImpl implements ShiroManager {
 	
-	private static Logger logger = Logger.getLogger(ShiroManagerImpl.class);
-
 	// 注意/r/n前不能有空格
 	private static final String CRLF = "\r\n";
-	private static final String LAST_AUTH_STR = "/** =loginFilter\r\n";
 
 	@Resource
 	private ShiroFilterFactoryBean shiroFilterFactoryBean;
@@ -134,11 +131,6 @@ public class ShiroManagerImpl implements ShiroManager {
    
 	   return sb.toString();
 	}
-	public static void main(String[] args) {
-		System.out.println(new ShiroManagerImpl().getRestfulAuthRule());
-		
-		//System.out.println(new IAuthServiceImpl().getFixedAuthRule());
-	}
 	
 	/**
 	 * 从配额文件获取固定权限验证规则串
@@ -153,7 +145,7 @@ public class ShiroManagerImpl implements ShiroManager {
 		try { 
 			properties.load(cp.getInputStream());
 		} catch (IOException e) {
-			logger.error("loadfixed_auth_res.properties error!", e);
+			LoggerUtils.error(getClass(),"loadfixed_auth_res.properties error!", e);
 			throw new RuntimeException("load fixed_auth_res.properties error!");
 		}
 		Set<Object> set = properties.keySet();
@@ -175,7 +167,8 @@ public class ShiroManagerImpl implements ShiroManager {
 			String value = (String) properties.get(key.toString());
 			if(value.contains("=")){
 				String varray [] = value.split("=");
-				sb.append(varray[0].trim()).append(" = ").append(varray[1].trim()).append(CRLF);
+					sb.append(varray[0].trim()).append(" = ")
+								.append(varray[1].trim()).append(CRLF);
 			}
 		}
 		
@@ -191,7 +184,7 @@ public class ShiroManagerImpl implements ShiroManager {
 		try {
 			shiroFilter = (AbstractShiroFilter) shiroFilterFactoryBean.getObject();
 		} catch (Exception e) {
-			logger.error("getShiroFilter from shiroFilterFactoryBean error!", e);
+			LoggerUtils.error(getClass(),"getShiroFilter from shiroFilterFactoryBean error!", e);
 			throw new RuntimeException("get ShiroFilter from shiroFilterFactoryBean error!");
 		}
 

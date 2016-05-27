@@ -155,6 +155,14 @@ public class CommonController extends BaseController {
 		
 		return new ModelAndView("www/go_to","url",url);
 	}
+	/**
+	 * 踢出页面
+	 * @return
+	 */
+	@RequestMapping(value="kickedOut",method=RequestMethod.GET)
+	public ModelAndView kickedOut(){
+		return new ModelAndView("common/kicked_out");
+	}
 	
 	
 }

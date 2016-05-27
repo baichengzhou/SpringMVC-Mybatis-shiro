@@ -2,7 +2,6 @@ package com.sojson.core.shiro.token;
 
 import java.util.Date;
 
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -13,7 +12,6 @@ import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
 import org.apache.shiro.subject.SimplePrincipalCollection;
-import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sojson.common.model.UUser;
@@ -69,7 +67,7 @@ public class SampleRealm extends AuthorizingRealm {
      */  
     @Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {  
-    	Subject currentUser = SecurityUtils.getSubject();
+//    	Subject currentUser = SecurityUtils.getSubject();
 //    	UUser user = (UUser) currentUser.getPrincipal();
 //    	Set<String> roles = new TreeSet<String>();
 //    	roles.add("role:" + user.getLevel());

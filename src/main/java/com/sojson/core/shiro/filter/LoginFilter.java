@@ -24,7 +24,6 @@ public class LoginFilter  extends AccessControlFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,
 			ServletResponse response, Object mappedValue) throws Exception {
-		HttpServletResponse hresponse = (HttpServletResponse)response;
 		HttpServletRequest hrequest = (HttpServletRequest)request;		
 		Map<String,String> resultMap = new HashMap<String, String>();
 		UUser token = TokenManager.getToken();
@@ -37,8 +36,8 @@ public class LoginFilter  extends AccessControlFilter {
             	token = (UUser) subject.getPrincipal();
             	  if(token != null){
       				if ("XMLHttpRequest".equalsIgnoreCase(hrequest.getHeader("X-Requested-With"))) {// ajax请求
-      				  resultMap.put("login_status", "100");
-             			  resultMap.put("message", "当前用户已经被禁止！");
+      					resultMap.put("login_status", "100");
+             			resultMap.put("message", "当前用户已经被禁止！");
       				}else{
       					 return false ;
       				}
@@ -49,7 +48,7 @@ public class LoginFilter  extends AccessControlFilter {
             			  LoggerUtils.debug(getClass(), "当前用户没有登录，并且是Ajax请求！");
 	        			  resultMap.put("login_status", "300");
 	        			  resultMap.put("message", "当前用户没有登录！");
-            			  out(hresponse, resultMap);
+	        			  ShiroFilterUtils.out(response, resultMap);
     				  } else{
     					  LoggerUtils.debug(getClass(), "当前用户没有登录，并且普通的HTTP请求！");
     				  }
@@ -69,16 +68,6 @@ public class LoginFilter  extends AccessControlFilter {
 		saveRequestAndRedirectToLogin(request, response);
 		return false;
 	}
-	
-	private void out(HttpServletResponse hresponse,Map<String,String> resultMap) throws IOException{
-		hresponse.setCharacterEncoding("UTF-8");
-		PrintWriter out = hresponse.getWriter();
-	  
-		out.println(JSONObject.fromObject(resultMap).toString());
-		out.flush();
-		out.close();
-	}
-	
 	
 
 }

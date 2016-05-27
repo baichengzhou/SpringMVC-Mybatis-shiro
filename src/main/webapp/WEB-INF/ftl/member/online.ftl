@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 	<head>
 		<meta charset="utf-8" />
-		<title>${token.nickname} —个人中心</title>
+		<title>当前在线用户 — SSM + Shiro Demo</title>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<link   rel="icon" href="http://img.wenyifan.net/images/favicon.ico" type="image/x-icon" />
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
@@ -11,7 +11,40 @@
 		<script  src="http://open.sojson.com/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="/js/common/layer/layer.js"></script>
 		<script  src="/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script  src="/js/shiro.demo.js"></script>
 		<script >
+			$(function(){
+				$("a[v=onlineDetails]").on('click',function(){
+					console.log(1)
+					var self = $(this);
+					var text = $.trim(self.text());
+					var index = layer.confirm("确定"+ text +"？",function(){
+						changeSessionStatus(self.attr('sessionId'),self.attr('status'),self);
+						layer.close(index);
+					});
+				});
+			});
+			//改变状态
+			function changeSessionStatus(sessionIds,status,self){
+				status = !parseInt(status);
+				//loading
+				var load = layer.load();
+				$.getJSON("/member/changeSessionStatus.shtml",{status:status,sessionIds:sessionIds},function(result){
+					layer.close(load);
+					if(result && result.status == 200){
+						return self.text(result.sessionStatusText),
+									self.attr('status',result.sessionStatus),
+										self.parent().prev().text(result.sessionStatusTextTd);
+										layer.msg('操作成功'),!1;
+						
+					}else{
+						return layer.msg(result.message,function(){}),!1;
+					}		
+					
+				});
+			}
+			
+			
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -31,31 +64,31 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
 				         </span>    
 				        </div>
 					<hr>
 					<table class="table table-bordered">
 						<tr>
-							<th><input type="checkbox" /></th>
 							<th>SessionID</th>
 							<th>昵称</th>
 							<th>Email/帐号</th>
-							<th>创建时间</th>
-							<th>最后登录时间</th>
+							<th>创建回话</th>
+							<th>回话最后活动</th>
+							<th>状态</th>
 							<th>操作</th>
 						</tr>
 						<#if list?exists && list?size gt 0 >
 							<#list list as it>
 								<tr>
-									<td><input value="${it.id}" type="checkbox" /></td>
 									<td>${it.sessionId?default('未设置')}</td>
 									<td>${it.nickname?default('未设置')}</td>
 									<td>${it.email?default('未设置')}</td>
-									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
-									<td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
+									<td>${it.startTime?string('HH:mm:ss yy-MM-dd')}</td>
+									<td>${it.lastAccess?string('HH:mm:ss yy-MM-dd')}</td>
+									<td>${(it.sessionStatus)?string('有效','已踢出')}</td>
 									<td>
-										<a href="javascript:void(0);">踢出</a>
+										<a href="/member/onlineDetails/${it.sessionId}.shtml">详情</a>
+										<a v="onlineDetails"href="javascript:void(0);" sessionId="${it.sessionId}" status="${(it.sessionStatus)?string(1,0)}">${(it.sessionStatus)?string('踢出','激活')}</a>
 									</td>
 								</tr>
 							</#list>

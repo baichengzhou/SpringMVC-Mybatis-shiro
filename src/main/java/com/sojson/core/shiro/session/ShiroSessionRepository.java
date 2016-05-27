@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Collection;
 
 /**
- * custom shiro session manager interface
+ * 用户session操作
  *
  * @author zhoubaicheng
  */
