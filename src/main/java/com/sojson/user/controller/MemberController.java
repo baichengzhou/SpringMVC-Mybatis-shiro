@@ -60,7 +60,7 @@ public class MemberController extends BaseController {
 	@RequestMapping(value="list")
 	public ModelAndView list(ModelMap map,Integer pageNo,String findContent){
 		map.put("findContent", findContent);
-		Pagination<UUser> page = userService.findByPage(resultMap,pageNo,pageSize);
+		Pagination<UUser> page = userService.findByPage(map,pageNo,pageSize);
 		map.put("page", page);
 		return new ModelAndView("member/list");
 	}
@@ -92,6 +92,16 @@ public class MemberController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> changeSessionStatus(Boolean status,String sessionIds){
 		return customSessionManager.changeSessionStatus(status,sessionIds);
+	}
+	/**
+	 * 根据ID删除，
+	 * @param ids	如果有多个，以“,”间隔。
+	 * @return
+	 */
+	@RequestMapping(value="deleteUserById",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> deleteUserById(String ids){
+		return userService.deleteUserById(ids);
 	}
 	
 }
