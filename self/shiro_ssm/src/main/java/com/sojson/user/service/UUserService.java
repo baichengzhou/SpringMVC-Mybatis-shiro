@@ -25,4 +25,6 @@ public interface UUserService {
 
 	Pagination<UUser> findByPage(Map<String, Object> resultMap, Integer pageNo,
 			Integer pageSize);
+
+	Map<String, Object> deleteUserById(String ids);
 }

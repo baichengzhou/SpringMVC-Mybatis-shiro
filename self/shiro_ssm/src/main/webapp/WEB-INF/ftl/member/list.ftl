@@ -20,11 +20,33 @@
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
-					if(checkeds){
-						return layer.msg('请选择');
+					if(!checkeds){
+						return layer.msg('请选择要删除的选项。',so.default),!0;
 					}
+					var array = [];
+					checkeds.each(function(){
+						array.push(this.value);
+					});
+					return _delete(array);
 				});
 			});
+			function _delete(ids){
+				var index = layer.confirm("确定这"+ ids.length +"个用户？",function(){
+					var load = layer.load();
+					$.getJSON('/member/deleteUserById.shtml',{ids:ids.join(',')},function(result){
+						layer.close(load);
+						if(result && result.status != 200){
+							return layer.msg(result.message,so.default),!0;
+						}else{
+							layer.msg('删除成功');
+							setTimeout(function(){
+								$('#formId').submit();
+							},1000);
+						}
+					});
+					layer.close(index);
+				});
+			}
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">

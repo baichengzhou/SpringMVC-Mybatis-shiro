@@ -5,10 +5,12 @@ import java.util.Map;
 
 import javax.annotation.Resource;
 
+import org.apache.commons.lang.StringUtils;
 import org.springframework.stereotype.Service;
 
 import com.sojson.common.dao.UUserMapper;
 import com.sojson.common.model.UUser;
+import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.user.service.UUserService;
@@ -70,6 +72,31 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
 	public Pagination<UUser> findByPage(Map<String, Object> resultMap,
 			Integer pageNo, Integer pageSize) {
 		return super.findPage(resultMap, pageNo, pageSize);
+	}
+
+	@Override
+	public Map<String, Object> deleteUserById(String ids) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			int count=0;
+			String[] idArray = new String[]{};
+			if(StringUtils.contains(ids, ",")){
+				idArray = ids.split(",");
+			}else{
+				idArray = new String[]{ids};
+			}
+			
+			for (String id : idArray) {
+				count+=this.deleteByPrimaryKey(new Long(id));
+			}
+			resultMap.put("status", 200);
+			resultMap.put("count", count);
+		} catch (Exception e) {
+			LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
+			resultMap.put("status", 500);
+			resultMap.put("message", "删除出现错误，请刷新后再试！");
+		}
+		return resultMap;
 	}
 	
 	

@@ -161,6 +161,7 @@ public class CommonController extends BaseController {
 	 */
 	@RequestMapping(value="kickedOut",method=RequestMethod.GET)
 	public ModelAndView kickedOut(){
+		
 		return new ModelAndView("common/kicked_out");
 	}
 	
