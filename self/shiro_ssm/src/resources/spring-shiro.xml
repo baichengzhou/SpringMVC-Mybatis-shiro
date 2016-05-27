@@ -52,6 +52,11 @@
 	    <property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
 	    <property name="sessionIdGenerator" ref="sessionIdGenerator"/>
 	</bean>
+	<!-- 手动操作Session，管理Session -->
+	<bean id="customSessionManager" class="com.sojson.core.shiro.session.CustomSessionManager">
+		<property name="shiroSessionRepository" ref="jedisShiroSessionRepository"/>
+		 <property name="customShiroSessionDAO" ref="customShiroSessionDAO"/>
+	</bean>
  
 	<!-- 会话验证调度器 -->
 	<bean id="sessionValidationScheduler" class="org.apache.shiro.session.mgt.ExecutorServiceSessionValidationScheduler">
@@ -128,6 +133,7 @@
     <bean id="shiroManager" class="com.sojson.core.shiro.service.impl.ShiroManagerImpl"/>
     <bean id="login" class="com.sojson.core.shiro.filter.LoginFilter"/>
     <bean id="role" class="com.sojson.core.shiro.filter.RoleFilter"/>
+    <bean id="simple" class="com.sojson.core.shiro.filter.SimpleAuthFilter"/>
 	
 	
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
@@ -157,6 +163,7 @@
            <util:map>
               <entry key="login" value-ref="login"></entry>
               <entry key="role" value-ref="role"></entry>
+              <entry key="simple" value-ref="simple"></entry>
            </util:map>
        </property>
 	</bean>

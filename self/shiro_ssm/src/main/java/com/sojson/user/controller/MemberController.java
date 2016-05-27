@@ -1,27 +1,27 @@
 package com.sojson.user.controller;
 
 import java.util.List;
+import java.util.Map;
 
-import javax.annotation.Resource;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
 import com.sojson.core.mybatis.page.Pagination;
-import com.sojson.core.shiro.CustomShiroSessionDAO;
-import com.sojson.core.shiro.cache.JedisShiroSessionRepository;
+import com.sojson.core.shiro.session.CustomSessionManager;
 import com.sojson.user.bo.UserOnlineBo;
-import com.sojson.user.manager.UserManager;
 import com.sojson.user.service.UUserService;
-
-import freemarker.ext.beans.MapModel;
 /**
  * 
  * 开发公司：itboy.net<br/>
@@ -46,10 +46,12 @@ import freemarker.ext.beans.MapModel;
 @Scope(value="prototype")
 @RequestMapping("member")
 public class MemberController extends BaseController {
-
+	/***
+	 * 用户手动操作Session
+	 * */
 	@Autowired
-	CustomShiroSessionDAO customShiroSessionDAO;
-	@Resource
+	CustomSessionManager customSessionManager;
+	@Autowired
 	UUserService userService;
 	/**
 	 * 用户列表管理
@@ -68,7 +70,28 @@ public class MemberController extends BaseController {
 	 */
 	@RequestMapping(value="online",method=RequestMethod.GET)
 	public ModelAndView online(){
-		List<UserOnlineBo> list = UserManager.getAllUser(customShiroSessionDAO);
+		List<UserOnlineBo> list = customSessionManager.getAllUser();
 		return new ModelAndView("member/online","list",list);
 	}
+	/**
+	 * 在线用户详情
+	 * @return
+	 */
+	@RequestMapping(value="onlineDetails/{sessionId}",method=RequestMethod.GET)
+	public ModelAndView onlineDetails(@PathVariable("sessionId")String sessionId){
+		UserOnlineBo bo = customSessionManager.getSession(sessionId);
+		return new ModelAndView("member/onlineDetails","bo",bo);
+	}
+	/**
+	 * 改变Session状态
+	 * @param status
+	 * @param sessionId
+	 * @return
+	 */
+	@RequestMapping(value="changeSessionStatus",method=RequestMethod.GET)
+	@ResponseBody
+	public Map<String,Object> changeSessionStatus(Boolean status,String sessionIds){
+		return customSessionManager.changeSessionStatus(status,sessionIds);
+	}
+	
 }

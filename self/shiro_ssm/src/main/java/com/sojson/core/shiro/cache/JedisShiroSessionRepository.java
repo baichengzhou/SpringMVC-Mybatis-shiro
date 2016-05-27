@@ -7,6 +7,8 @@ import org.apache.log4j.Logger;
 import org.apache.shiro.session.Session;
 
 import com.sojson.common.utils.SerializeUtil;
+import com.sojson.core.shiro.session.CustomSessionManager;
+import com.sojson.core.shiro.session.SessionStatus;
 import com.sojson.core.shiro.session.ShiroSessionRepository;
 /**
  * Session 管理
@@ -30,6 +32,15 @@ public class JedisShiroSessionRepository implements ShiroSessionRepository {
             throw new NullPointerException("session is empty");
         try {
             byte[] key = SerializeUtil.serialize(buildRedisSessionKey(session.getId()));
+            
+            
+            //不存在才添加。
+            if(null == session.getAttribute(CustomSessionManager.SESSION_STATUS)){
+            	//Session 踢出自存存储。
+            	SessionStatus sessionStatus = new SessionStatus();
+            	session.setAttribute(CustomSessionManager.SESSION_STATUS, sessionStatus);
+            }
+            
             byte[] value = SerializeUtil.serialize(session);
             long sessionTimeOut = session.getTimeout() / 1000;
             Long expireTime = sessionTimeOut + SESSION_VAL_TIME_SPAN + (5 * 60);

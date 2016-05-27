@@ -11,7 +11,20 @@
 		<script  src="http://open.sojson.com/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="/js/common/layer/layer.js"></script>
 		<script  src="/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+		<script  src="/js/shiro.demo.js"></script>
 		<script >
+			so.init(function(){
+				//初始化全选。
+				so.checkBoxInit('#checkAll','[check=box]');
+				
+				//全选
+				so.id('deleteAll').on('click',function(){
+					var checkeds = $('[check=box]:checked');
+					if(checkeds){
+						return layer.msg('请选择');
+					}
+				});
+			});
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -37,7 +50,7 @@
 					<hr>
 					<table class="table table-bordered">
 						<tr>
-							<th><input type="checkbox" /></th>
+							<th><input type="checkbox" id="checkAll"/></th>
 							<th>昵称</th>
 							<th>Email/帐号</th>
 							<th>创建时间</th>
@@ -47,7 +60,7 @@
 						<#if page?exists && page.list?size gt 0 >
 							<#list page.list as it>
 								<tr>
-									<td><input value="${it.id}" type="checkbox" /></td>
+									<td><input value="${it.id}" check='box' type="checkbox" /></td>
 									<td>${it.nickname?default('未设置')}</td>
 									<td>${it.email?default('未设置')}</td>
 									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>

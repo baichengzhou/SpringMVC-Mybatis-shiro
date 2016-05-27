@@ -20,9 +20,9 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="/user/index.shtml">个人资料</a></li>
-						<li><a href="/user/updateSelf.shtml" target="_blank">资料修改</a></li>
-						<li><a href="/user/updatePswd.shtml" target="_blank">密码修改</a></li>
-						<li><a href="/permission/mypermission.shtml" target="_blank">我的权限</a></li>
+						<li><a href="/user/updateSelf.shtml" >资料修改</a></li>
+						<li><a href="/user/updatePswd.shtml" >密码修改</a></li>
+						<li><a href="/permission/mypermission.shtml">我的权限</a></li>
 					</ul>
 				</li>	            
 				<li class="dropdown ${(index==2)?string('active','')}">
