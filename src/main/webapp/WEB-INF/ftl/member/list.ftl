@@ -30,10 +30,11 @@
 					return _delete(array);
 				});
 			});
+			//根据ID数组，删除
 			function _delete(ids){
 				var index = layer.confirm("确定这"+ ids.length +"个用户？",function(){
 					var load = layer.load();
-					$.getJSON('/member/deleteUserById.shtml',{ids:ids.join(',')},function(result){
+					$.post('/member/deleteUserById.shtml',{ids:ids.join(',')},function(result){
 						layer.close(load);
 						if(result && result.status != 200){
 							return layer.msg(result.message,so.default),!0;
@@ -43,7 +44,28 @@
 								$('#formId').submit();
 							},1000);
 						}
-					});
+					},'json');
+					layer.close(index);
+				});
+			}
+			/*
+			*激活 | 禁止用户登录
+			*/
+			function forbidUserById(status,id){
+				var text = status?'激活':'禁止';
+				var index = layer.confirm("确定"+text+"这个用户？",function(){
+					var load = layer.load();
+					$.post('/member/forbidUserById.shtml',{status:status,id:id},function(result){
+						layer.close(load);
+						if(result && result.status != 200){
+							return layer.msg(result.message,so.default),!0;
+						}else{
+							layer.msg(text +'成功');
+							setTimeout(function(){
+								$('#formId').submit();
+							},1000);
+						}
+					},'json');
 					layer.close(index);
 				});
 			}
@@ -75,6 +97,7 @@
 							<th><input type="checkbox" id="checkAll"/></th>
 							<th>昵称</th>
 							<th>Email/帐号</th>
+							<th>登录状态</th>
 							<th>创建时间</th>
 							<th>最后登录时间</th>
 							<th>操作</th>
@@ -85,11 +108,12 @@
 									<td><input value="${it.id}" check='box' type="checkbox" /></td>
 									<td>${it.nickname?default('未设置')}</td>
 									<td>${it.email?default('未设置')}</td>
+									<td>${(it.status==1)?string('有效','禁止')}</td>
 									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>
-										<a href="#">禁止登录</a>
-										<a href="#">删除</a>
+										<a href="javascript:forbidUserById(${(it.status==1)?string(0,1)},${it.id})">${(it.status==1)?string('禁止登录','激活登录')}</a>
+										<a href="javascript:_delete([${it.id}]);">删除</a>
 									</td>
 								</tr>
 							</#list>

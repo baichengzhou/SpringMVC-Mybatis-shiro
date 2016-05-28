@@ -3,9 +3,6 @@ package com.sojson.user.controller;
 import java.util.List;
 import java.util.Map;
 
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -18,6 +15,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
+import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.core.shiro.session.CustomSessionManager;
 import com.sojson.user.bo.UserOnlineBo;
@@ -88,7 +86,7 @@ public class MemberController extends BaseController {
 	 * @param sessionId
 	 * @return
 	 */
-	@RequestMapping(value="changeSessionStatus",method=RequestMethod.GET)
+	@RequestMapping(value="changeSessionStatus",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> changeSessionStatus(Boolean status,String sessionIds){
 		return customSessionManager.changeSessionStatus(status,sessionIds);
@@ -98,10 +96,21 @@ public class MemberController extends BaseController {
 	 * @param ids	如果有多个，以“,”间隔。
 	 * @return
 	 */
-	@RequestMapping(value="deleteUserById",method=RequestMethod.GET)
+	@RequestMapping(value="deleteUserById",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> deleteUserById(String ids){
 		return userService.deleteUserById(ids);
+	}
+	/**
+	 * 禁止登录
+	 * @param id		用户ID
+	 * @param status	1:有效，0:禁止登录
+	 * @return
+	 */
+	@RequestMapping(value="forbidUserById",method=RequestMethod.POST)
+	@ResponseBody
+	public Map<String,Object> forbidUserById(Long id,Long status){
+		return userService.updateForbidUserById(id,status);
 	}
 	
 }

@@ -5,7 +5,7 @@
 	<groupId>new.json</groupId>
 	<artifactId>new.json</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>war</packaging> 
 
 	<name>new.json</name>
 	<url>http://maven.apache.org</url>

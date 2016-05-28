@@ -27,4 +27,6 @@ public interface UUserService {
 			Integer pageSize);
 
 	Map<String, Object> deleteUserById(String ids);
+
+	Map<String, Object> updateForbidUserById(Long id, Long status);
 }

@@ -29,19 +29,17 @@
 				status = !parseInt(status);
 				//loading
 				var load = layer.load();
-				$.getJSON("/member/changeSessionStatus.shtml",{status:status,sessionIds:sessionIds},function(result){
+				$.post("/member/changeSessionStatus.shtml",{status:status,sessionIds:sessionIds},function(result){
 					layer.close(load);
 					if(result && result.status == 200){
 						return self.text(result.sessionStatusText),
 									self.attr('status',result.sessionStatus),
 										self.parent().prev().text(result.sessionStatusTextTd);
 										layer.msg('操作成功'),!1;
-						
 					}else{
 						return layer.msg(result.message,function(){}),!1;
 					}		
-					
-				});
+				},'json');
 			}
 			
 			
