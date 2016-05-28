@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
-import org.apache.commons.lang.StringUtils;
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.Subject;
 import org.apache.shiro.web.filter.AccessControlFilter;
@@ -62,7 +61,7 @@ public class SimpleAuthFilter extends AccessControlFilter {
 			if (ShiroFilterUtils.isAjax(request) ) {
 				LoggerUtils.debug(getClass(), "当前用户已经被踢出，并且是Ajax请求！");
 				resultMap.put("user_status", "300");
-				resultMap.put("message", "当前用户已经被踢出！");
+				resultMap.put("message", "您已经被踢出，请重新登录！");
 				out(response, resultMap);
 			}
 			return  Boolean.FALSE;
@@ -74,6 +73,10 @@ public class SimpleAuthFilter extends AccessControlFilter {
 	protected boolean onAccessDenied(ServletRequest request,
 			ServletResponse response) throws Exception {
 		
+		//先退出
+		Subject subject = getSubject(request, response);
+		subject.logout();
+		//再重定向
 		WebUtils.getSavedRequest(request);
 		WebUtils.issueRedirect(request, response, "/open/kickedOut.shtml");
 		return false;

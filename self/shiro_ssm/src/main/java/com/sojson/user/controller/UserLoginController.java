@@ -4,9 +4,13 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
+import javax.security.auth.login.AccountException;
+import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
 
+import org.apache.shiro.authc.DisabledAccountException;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
 import com.sojson.common.utils.LoggerUtils;
+import com.sojson.common.utils.StringUtils;
 import com.sojson.common.utils.VerifyCodeUtils;
 import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.user.manager.UserManager;
@@ -94,6 +99,9 @@ public class UserLoginController extends BaseController {
 		entity.setLastLoginTime(date);
 		//把密码md5
 		entity = UserManager.md5Pswd(entity);
+		//设置有效
+		entity.setStatus(new Long(1));
+		
 		entity = userService.insert(entity);
 		LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.fromObject(entity).toString());
 		entity = TokenManager.login(entity, Boolean.TRUE);
@@ -108,16 +116,32 @@ public class UserLoginController extends BaseController {
 	 */
 	@RequestMapping(value="submitLogin",method=RequestMethod.POST)
 	@ResponseBody
-	public Map<String,Object> submitLogin(UUser entity,Boolean rememberMe){
+	public Map<String,Object> submitLogin(UUser entity,Boolean rememberMe,HttpServletRequest request){
 		try {
 			entity = TokenManager.login(entity,rememberMe);
 			resultMap.put("status", 200);
 			resultMap.put("message", "登录成功");
-			resultMap.put("back_url", "/user/index.shtml");
+			
+			//获取用户未登录之前的地址
+			String url = WebUtils.getSavedRequest(request).getRequestUrl();
+			LoggerUtils.fmtDebug(getClass(), "获取登录之前的URL:[%s]",url);
+			//如果登录之前没有地址，那么就跳转到首页。
+			if(StringUtils.isBlank(url)){
+				url = "/user/index.shtml";
+			}
+			//跳转地址
+			resultMap.put("back_url", url);
+		/**
+		 * 这里其实可以直接catch Exception，然后抛出 message即可，但是最好还是各种明细catch 好点。。
+		 */
+		} catch (DisabledAccountException e) {
+			resultMap.put("status", 500);
+			resultMap.put("message", "帐号已经禁用。");
 		} catch (Exception e) {
 			resultMap.put("status", 500);
 			resultMap.put("message", "帐号或密码错误");
 		}
+			
 		return resultMap;
 	}
 	

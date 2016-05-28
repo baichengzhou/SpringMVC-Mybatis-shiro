@@ -154,6 +154,30 @@ public class CustomSessionManager {
 		}
 		return map;
 	}
+	/**
+	 * 查询要禁用的用户是否在线。
+	 * @param id
+	 * @param status
+	 */
+	public void forbidUserById(Long id, Long status) {
+		for(UserOnlineBo bo : getAllUser()){
+			Long userId = bo.getId();
+			if(userId.equals(id)){
+				Session session = shiroSessionRepository.getSession(bo.getSessionId());
+				SessionStatus sessionStatus = (SessionStatus) session.getAttribute(SESSION_STATUS);
+				sessionStatus.setOnlineStatus(status.intValue() == 1);
+				customShiroSessionDAO.update(session);
+			}
+		}
+		
+	}
+	
+	
+	
+	
+	
+	
+	
 	public void setShiroSessionRepository(
 			ShiroSessionRepository shiroSessionRepository) {
 		this.shiroSessionRepository = shiroSessionRepository;
@@ -162,6 +186,8 @@ public class CustomSessionManager {
 	public void setCustomShiroSessionDAO(CustomShiroSessionDAO customShiroSessionDAO) {
 		this.customShiroSessionDAO = customShiroSessionDAO;
 	}
+
+	
 
 	
 	

@@ -6,6 +6,7 @@ import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
+import org.apache.shiro.authc.DisabledAccountException;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
@@ -54,6 +55,8 @@ public class SampleRealm extends AuthorizingRealm {
 		UUser user = userService.login(token.getUsername(),token.getPswd());
 		if(null == user){
 			throw new AccountException("帐号或密码不正确！");
+		}else if(new Long(0).equals(user.getStatus())){
+			throw new DisabledAccountException("帐号已经禁止登录！");
 		}else{
 			//更新登录时间 last login time
 			user.setLastLoginTime(new Date());

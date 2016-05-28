@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.apache.commons.lang.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sojson.common.dao.UUserMapper;
@@ -13,11 +14,16 @@ import com.sojson.common.model.UUser;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.core.shiro.session.CustomSessionManager;
 import com.sojson.user.service.UUserService;
 
 @Service
 public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUserService {
-
+	/***
+	 * 用户手动操作Session
+	 * */
+	@Autowired
+	CustomSessionManager customSessionManager;
 	@Resource
 	UUserMapper userMapper;
 
@@ -95,6 +101,27 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
 			LoggerUtils.fmtError(getClass(), e, "根据IDS删除用户出现错误，ids[%s]", ids);
 			resultMap.put("status", 500);
 			resultMap.put("message", "删除出现错误，请刷新后再试！");
+		}
+		return resultMap;
+	}
+
+	@Override
+	public Map<String, Object> updateForbidUserById(Long id, Long status) {
+		Map<String,Object> resultMap = new HashMap<String,Object>();
+		try {
+			UUser user = selectByPrimaryKey(id);
+			user.setStatus(status);
+			updateByPrimaryKeySelective(user);
+			
+			//如果当前用户在线，需要标记并且踢出
+			customSessionManager.forbidUserById(id,status);
+			
+			
+			resultMap.put("status", 200);
+		} catch (Exception e) {
+			resultMap.put("status", 500);
+			resultMap.put("message", "操作失败，请刷新再试！");
+			LoggerUtils.fmtError(getClass(), "禁止或者激活用户登录失败，id[%s],status[%s]", id,status);
 		}
 		return resultMap;
 	}

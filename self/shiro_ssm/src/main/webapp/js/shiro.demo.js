@@ -13,6 +13,8 @@
 		 */
 		so.checkBoxInit = function(prentCheckbox,childCheckbox){
 			childCheckbox = o(childCheckbox),prentCheckbox = o(prentCheckbox);
+			//先取消全选。
+			childCheckbox.add(prentCheckbox).attr('checked',!1);
 			//全选
 			prentCheckbox.on('click',function(){
 				childCheckbox.attr('checked',this.checked);

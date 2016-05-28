@@ -36,6 +36,8 @@ public class UUser implements Serializable{
     private Date createTime;
     /**最后登录时间*/
     private Date lastLoginTime;
+    /**1:有效，0:禁止登录*/
+    private Long status;
     public UUser() {
 	}
     public UUser(UUser user) {
@@ -67,7 +69,13 @@ public class UUser implements Serializable{
         return email;
     }
 
-    public void setEmail(String email) {
+    public Long getStatus() {
+		return status;
+	}
+	public void setStatus(Long status) {
+		this.status = status;
+	}
+	public void setEmail(String email) {
         this.email = email;
     }
 
