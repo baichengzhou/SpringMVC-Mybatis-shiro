@@ -24,7 +24,10 @@ import java.util.Date;
  */
 public class UUser implements Serializable{
 	private static final long serialVersionUID = 1L;
-
+	//0:禁止登录
+	public static final Long _0 = new Long(0);
+	//1:有效
+	public static final Long _1 = new Long(1);
 	private Long id;
 	/**昵称*/
     private String nickname;
@@ -38,8 +41,10 @@ public class UUser implements Serializable{
     private Date lastLoginTime;
     /**1:有效，0:禁止登录*/
     private Long status;
-    public UUser() {
-	}
+    
+    
+    
+    public UUser() {}
     public UUser(UUser user) {
 		this.id = user.getId();
 		this.nickname = user.getNickname();

@@ -4,7 +4,6 @@ import java.util.Date;
 import java.util.Map;
 
 import javax.annotation.Resource;
-import javax.security.auth.login.AccountException;
 import javax.servlet.http.HttpServletRequest;
 
 import net.sf.json.JSONObject;
@@ -100,7 +99,7 @@ public class UserLoginController extends BaseController {
 		//把密码md5
 		entity = UserManager.md5Pswd(entity);
 		//设置有效
-		entity.setStatus(new Long(1));
+		entity.setStatus(UUser._1);
 		
 		entity = userService.insert(entity);
 		LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.fromObject(entity).toString());
@@ -112,11 +111,15 @@ public class UserLoginController extends BaseController {
 	}
 	/**
 	 * 登录提交
+	 * @param entity		登录的UUser
+	 * @param rememberMe	是否记住
+	 * @param request		request，用来取登录之前Url地址，用来登录后跳转到没有登录之前的页面。
 	 * @return
 	 */
 	@RequestMapping(value="submitLogin",method=RequestMethod.POST)
 	@ResponseBody
 	public Map<String,Object> submitLogin(UUser entity,Boolean rememberMe,HttpServletRequest request){
+		
 		try {
 			entity = TokenManager.login(entity,rememberMe);
 			resultMap.put("status", 200);
