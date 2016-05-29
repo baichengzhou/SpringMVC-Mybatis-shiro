@@ -15,7 +15,6 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.controller.BaseController;
 import com.sojson.common.model.UUser;
-import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.core.shiro.session.CustomSessionManager;
 import com.sojson.user.bo.UserOnlineBo;

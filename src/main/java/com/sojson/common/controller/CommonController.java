@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sojson.common.utils.LoggerUtils;
+import com.sojson.common.utils.StringUtils;
 import com.sojson.common.utils.VerifyCodeUtils;
 import com.sojson.common.utils.vcode.Captcha;
 import com.sojson.common.utils.vcode.GifCaptcha;
@@ -160,8 +161,12 @@ public class CommonController extends BaseController {
 	 * @return
 	 */
 	@RequestMapping(value="kickedOut",method=RequestMethod.GET)
-	public ModelAndView kickedOut(){
-		
+	public ModelAndView kickedOut(HttpServletRequest request){
+		//如果是踢出后，来源地址是：http://shiro.itboy.net/u/login.shtml;JSESSIONID=4f1538d9-df19-48c8-b4b1-aadacadde23a
+		//如果来源是null，那么就重定向到首页。这个时候，如果首页是要登录，那就会跳转到登录页
+		if(StringUtils.isBlank(request.getHeader("Referer"))){
+			return redirect("/");
+		}
 		return new ModelAndView("common/kicked_out");
 	}
 	
