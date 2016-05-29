@@ -112,7 +112,10 @@
 									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>
-										<a href="javascript:forbidUserById(${(it.status==1)?string(0,1)},${it.id})">${(it.status==1)?string('禁止登录','激活登录')}</a>
+										${(it.status==1)?string('<i class="glyphicon glyphicon-eye-close"></i>&nbsp;','<i class="glyphicon glyphicon-eye-open"></i>&nbsp;')}
+										<a href="javascript:forbidUserById(${(it.status==1)?string(0,1)},${it.id})">
+											${(it.status==1)?string('禁止登录','激活登录')}
+										</a>
 										<a href="javascript:_delete([${it.id}]);">删除</a>
 									</td>
 								</tr>
