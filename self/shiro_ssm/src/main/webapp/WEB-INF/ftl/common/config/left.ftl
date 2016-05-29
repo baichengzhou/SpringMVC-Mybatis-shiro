@@ -34,3 +34,24 @@
 	</ul>
 </div>
 </#macro>
+<#macro role index>
+<div id="one" class="col-md-2">
+	<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">
+	  <li class="${(index==1)?string('active',' ')}">
+	      <a href="/role/index.shtml">
+	    	 <i class="glyphicon glyphicon-chevron-right"></i>角色列表
+	      </a>
+	  </li>
+	  <li class="${(index==2)?string('active',' ')} dropdown">
+	      <a href="/permission/index.shtml">
+	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限列表
+	      </a>
+	  </li>
+	  <li class="${(index==2)?string('active',' ')} dropdown">
+	      <a href="/permission/allocation.shtml">
+	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限分配
+	      </a>
+	  </li>
+	</ul>
+</div>
+</#macro>
