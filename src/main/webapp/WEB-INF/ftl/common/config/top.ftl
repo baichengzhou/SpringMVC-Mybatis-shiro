@@ -35,11 +35,13 @@
 					</ul>
 				</li>	            
 				<li class="dropdown ${(index==3)?string('active','')}">
-					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="http://www.sojson.com/encrypt.html">
+					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="/permission/index.shtml">
 						权限管理<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="http://www.sojson.com/encrypt.html">加密 / 加密</a></li>
+						<li><a href="/role/index.shtml">角色列表</a></li>
+						<li><a href="/permission/index.shtml">权限列表</a></li>
+						<li><a href="/permission/allocation.shtml">权限分配</a></li>
 					</ul>
 				</li>	            
 	          </ul>
