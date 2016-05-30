@@ -8,6 +8,7 @@ import java.util.TreeSet;
 import org.apache.shiro.session.Session;
 
 import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisCluster;
 import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.exceptions.JedisConnectionException;
 
@@ -115,7 +116,6 @@ public class JedisManager {
     public void setJedisPool(JedisPool jedisPool) {
         this.jedisPool = jedisPool;
     }
-
 
 	/**
 	 * 获取所有Session

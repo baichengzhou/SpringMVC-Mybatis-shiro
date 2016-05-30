@@ -1,6 +1,9 @@
 package com.sojson.permission.service;
 
+import java.util.Map;
+
 import com.sojson.common.model.URole;
+import com.sojson.core.mybatis.page.Pagination;
 
 public interface RoleService {
 
@@ -15,4 +18,9 @@ public interface RoleService {
     int updateByPrimaryKeySelective(URole record);
 
     int updateByPrimaryKey(URole record);
+
+	Pagination<URole> findPage(Map<String, Object> resultMap, Integer pageNo,
+			Integer pageSize);
+
+	Map<String, Object> deleteRoleById(String ids);
 }
