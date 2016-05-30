@@ -20,26 +20,26 @@
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
-					if(!checkeds){
+					if(!checkeds.length){
 						return layer.msg('请选择要删除的选项。',so.default),!0;
 					}
 					var array = [];
 					checkeds.each(function(){
 						array.push(this.value);
 					});
-					return _delete(array);
+					return deleteById(array);
 				});
 			});
-			//根据ID数组，删除
-			function _delete(ids){
-				var index = layer.confirm("确定这"+ ids.length +"个用户？",function(){
+			<#--根据ID数组删除角色-->
+			function deleteById(ids){
+				var index = layer.confirm("确定这"+ ids.length +"个角色？",function(){
 					var load = layer.load();
-					$.post('/member/deleteUserById.shtml',{ids:ids.join(',')},function(result){
+					$.post('/role/deleteRoleById.shtml',{ids:ids.join(',')},function(result){
 						layer.close(load);
 						if(result && result.status != 200){
 							return layer.msg(result.message,so.default),!0;
 						}else{
-							layer.msg('删除成功');
+							layer.msg(result.resultMsg);
 							setTimeout(function(){
 								$('#formId').submit();
 							},1000);
@@ -48,46 +48,52 @@
 					layer.close(index);
 				});
 			}
-			/*
-			*激活 | 禁止用户登录
-			*/
-			function forbidUserById(status,id){
-				var text = status?'激活':'禁止';
-				var index = layer.confirm("确定"+text+"这个用户？",function(){
-					var load = layer.load();
-					$.post('/member/forbidUserById.shtml',{status:status,id:id},function(result){
-						layer.close(load);
-						if(result && result.status != 200){
-							return layer.msg(result.message,so.default),!0;
-						}else{
-							layer.msg(text +'成功');
-							setTimeout(function(){
-								$('#formId').submit();
-							},1000);
-						}
-					},'json');
-					layer.close(index);
-				});
+			<#--添加角色-->
+			function addRole(){
+				var name = $('#name').val(),
+					type = $('#type').val();
+				if($.trim(name) == ''){
+					return layer.msg('角色名称不能为空。',so.default),!1;
+				}
+				if(!/^[a-z0-9A-Z]{6}$/.test(type)){
+					return layer.msg('角色类型为6数字字母。',so.default),!1;
+				}
+				<#--loding-->
+				var load = layer.load();
+				$.post('/role/addRole.shtml',{name:name,type:type},function(result){
+					layer.close(load);
+					if(result && result.status != 200){
+						return layer.msg(result.message,so.default),!1;
+					}
+					layer.msg('添加成功。');
+					setTimeout(function(){
+						$('#formId').submit();
+					},1000);
+				},'json');
+				
+				
 			}
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
-		
-		<@_top.top 2/>
+		<#--引入头部-->
+		<@_top.top 3/>
 		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
 			<div class="row">
-				<@_left.member 1/>
+				<#--引入左侧菜单-->
+				<@_left.role 2/>
 				<div class="col-md-10">
-					<h2>用户列表</h2>
+					<h2>权限列表</h2>
 					<hr>
 					<form method="post" action="" id="formId" class="form-inline">
 						<div clss="well">
 					      <div class="form-group">
 					        <input type="text" class="form-control" style="width: 300px;" value="${findContent?default('')}" 
-					        			name="findContent" id="findContent" placeholder="输入昵称 / 帐号">
+					        			name="findContent" id="findContent" placeholder="输入角色类型 / 角色名称">
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
+				         	<a class="btn btn-success" onclick="$('#addrole').modal();">增加权限</a>
 				         	<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
 				         </span>    
 				        </div>
@@ -95,43 +101,65 @@
 					<table class="table table-bordered">
 						<tr>
 							<th><input type="checkbox" id="checkAll"/></th>
-							<th>昵称</th>
-							<th>Email/帐号</th>
-							<th>登录状态</th>
-							<th>创建时间</th>
-							<th>最后登录时间</th>
+							<th>角色名称</th>
+							<th>角色类型</th>
 							<th>操作</th>
 						</tr>
 						<#if page?exists && page.list?size gt 0 >
 							<#list page.list as it>
 								<tr>
 									<td><input value="${it.id}" check='box' type="checkbox" /></td>
-									<td>${it.nickname?default('未设置')}</td>
-									<td>${it.email?default('未设置')}</td>
-									<td>${(it.status==1)?string('有效','禁止')}</td>
-									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
-									<td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
+									<td>${it.name?default('-')}</td>
+									<td>${it.type?default('-')}</td>
 									<td>
-										${(it.status==1)?string('<i class="glyphicon glyphicon-eye-close"></i>&nbsp;','<i class="glyphicon glyphicon-eye-open"></i>&nbsp;')}
-										<a href="javascript:forbidUserById(${(it.status==1)?string(0,1)},${it.id})">
-											${(it.status==1)?string('禁止登录','激活登录')}
-										</a>
-										<a href="javascript:_delete([${it.id}]);">删除</a>
+										<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
 									</td>
 								</tr>
 							</#list>
 						<#else>
 							<tr>
-								<td class="text-center danger" colspan="6">没有找到用户</td>
+								<td class="text-center danger" colspan="4">没有找到角色</td>
 							</tr>
 						</#if>
 					</table>
-					<div class="pagination pull-right">
-						${page.pageHtml}
-					</div>
+					<#if page?exists>
+						<div class="pagination pull-right">
+							${page.pageHtml}
+						</div>
+					</#if>
 					</form>
 				</div>
 			</div><#--/row-->
+			
+			<#--弹框-->
+			<div class="modal fade" id="addrole" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+			  <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      <div class="modal-header">
+			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        <h4 class="modal-title" id="addroleLabel">添加角色</h4>
+			      </div>
+			      <div class="modal-body">
+			        <form id="boxRoleForm">
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">角色名称:</label>
+			            <input type="text" class="form-control" name="name" id="name" placeholder="请输入角色名称"/>
+			          </div>
+			          <div class="form-group">
+			            <label for="recipient-name" class="control-label">角色类型:</label>
+			            <input type="text" class="form-control" id="type" name="type"  placeholder="请输入角色类型  [字母 + 数字] 6位">
+			          </div>
+			        </form>
+			      </div>
+			      <div class="modal-footer">
+			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			        <button type="button" onclick="addRole();" class="btn btn-primary">Save</button>
+			      </div>
+			    </div>
+			  </div>
+			</div>
+			<#--/弹框-->
+			
 		</div>
 			
 	</body>
