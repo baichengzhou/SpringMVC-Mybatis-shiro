@@ -9,6 +9,35 @@
   <sql id="Base_Column_List" >
     id, url, name
   </sql>
+  
+  <sql id="limit_sql">
+  	   <if test="page_sql != null and page_sql != ''">
+      	${page_sql}
+      </if>
+  </sql>
+  
+  <sql id="where_all">
+  	<where>
+  	<if test="findContent != null and findContent !='' " >
+        and (
+        LOWER(name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+        LOWER(url) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+        )
+      </if>
+      </where>
+  </sql>
+  <select id="findAll" resultMap="BaseResultMap" >
+  	 select 
+    <include refid="Base_Column_List" />
+    from u_permission 
+    <include refid="where_all"/>
+    <include refid="limit_sql" />
+  </select>
+  <select id="findCount" resultMap="BaseResultMap" >
+ 	 select count(id) from  u_permission
+  	<include refid="where_all" />
+  </select>
+  
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

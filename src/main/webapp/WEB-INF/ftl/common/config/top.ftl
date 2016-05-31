@@ -40,6 +40,7 @@
 					</a>
 					<ul class="dropdown-menu">
 						<li><a href="/role/index.shtml">角色列表</a></li>
+						<li><a href="/role/allocation.shtml">角色列表</a></li>
 						<li><a href="/permission/index.shtml">权限列表</a></li>
 						<li><a href="/permission/allocation.shtml">权限分配</a></li>
 					</ul>

@@ -2,7 +2,7 @@
 <html lang="zh-cn">
 	<head>
 		<meta charset="utf-8" />
-		<title>权限列表 - 权限管理</title>
+		<title>权限分配 - 权限管理</title>
 		<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport" />
 		<link   rel="icon" href="http://img.wenyifan.net/images/favicon.ico" type="image/x-icon" />
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
@@ -81,9 +81,9 @@
 		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
 			<div class="row">
 				<#--引入左侧菜单-->
-				<@_left.role 3/>
+				<@_left.role 4/>
 				<div class="col-md-10">
-					<h2>权限列表</h2>
+					<h2>权限分配</h2>
 					<hr>
 					<form method="post" action="" id="formId" class="form-inline">
 						<div clss="well">
@@ -101,18 +101,19 @@
 					<table class="table table-bordered">
 						<tr>
 							<th><input type="checkbox" id="checkAll"/></th>
-							<th>权限名称</th>
-							<th>角色类型</th>
+							<th>用户</th>
+							<th>角色名称</th>
 							<th>操作</th>
 						</tr>
 						<#if page?exists && page.list?size gt 0 >
 							<#list page.list as it>
 								<tr>
 									<td><input value="${it.id}" check='box' type="checkbox" /></td>
-									<td>${it.name?default('-')}</td>
-									<td>${it.url?default('-')}</td>
+									<td>${it.nickname}</td>
+									<td>-</td>
 									<td>
 										<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
+										<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:deleteById([${it.id}]);">设置角色</a>
 									</td>
 								</tr>
 							</#list>

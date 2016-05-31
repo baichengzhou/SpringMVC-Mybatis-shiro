@@ -43,11 +43,16 @@
 	      </a>
 	  </li>
 	  <li class="${(index==2)?string('active',' ')} dropdown">
+	      <a href="/role/allocation.shtml">
+	    	 <i class="glyphicon glyphicon-chevron-right"></i>角色分配
+	      </a>
+	  </li>
+	  <li class="${(index==3)?string('active',' ')} dropdown">
 	      <a href="/permission/index.shtml">
 	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限列表
 	      </a>
 	  </li>
-	  <li class="${(index==3)?string('active',' ')} dropdown">
+	  <li class="${(index==4)?string('active',' ')} dropdown">
 	      <a href="/permission/allocation.shtml">
 	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限分配
 	      </a>
