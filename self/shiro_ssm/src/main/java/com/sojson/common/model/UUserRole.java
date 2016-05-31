@@ -1,6 +1,8 @@
 package com.sojson.common.model;
 
 import java.io.Serializable;
+
+import net.sf.json.JSONObject;
 /**
  * 
  * 开发公司：itboy.net<br/>
@@ -42,5 +44,8 @@ public class UUserRole  implements Serializable{
 
     public void setRid(Long rid) {
         this.rid = rid;
+    }
+    public String toString(){
+    	return JSONObject.fromObject(this).toString();
     }
 }

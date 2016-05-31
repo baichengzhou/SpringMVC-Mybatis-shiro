@@ -1,6 +1,8 @@
 package com.sojson.common.model;
 
 import java.io.Serializable;
+
+import net.sf.json.JSONObject;
 /**
  * 
  * 开发公司：itboy.net<br/>
@@ -51,5 +53,9 @@ public class UPermission  implements Serializable{
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public String toString(){
+    	return JSONObject.fromObject(this).toString();
     }
 }

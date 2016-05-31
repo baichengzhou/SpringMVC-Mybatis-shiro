@@ -8,6 +8,7 @@ import javax.annotation.Resource;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UrlPathHelper;
 
 import com.sojson.common.dao.UUserMapper;
 import com.sojson.common.model.UUser;

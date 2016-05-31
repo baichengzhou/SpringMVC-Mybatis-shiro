@@ -2,8 +2,6 @@ package com.sojson.permission.controller;
 
 import java.util.Map;
 
-import net.sf.json.JSONObject;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
@@ -69,7 +67,7 @@ public class RoleController extends BaseController {
 		} catch (Exception e) {
 			resultMap.put("status", 500);
 			resultMap.put("message", "添加失败，请刷新后再试！");
-			LoggerUtils.fmtError(getClass(), e, "添加角色报错。source[%s]", JSONObject.fromObject(role).toString());
+			LoggerUtils.fmtError(getClass(), e, "添加角色报错。source[%s]",role.toString());
 		}
 		return resultMap;
 	}

@@ -1,6 +1,8 @@
 package com.sojson.common.model;
 
 import java.io.Serializable;
+
+import net.sf.json.JSONObject;
 /**
  * 
  * 开发公司：itboy.net<br/>
@@ -51,5 +53,8 @@ public class URole  implements Serializable{
 
     public void setType(String type) {
         this.type = type;
+    }
+    public String toString(){
+    	return JSONObject.fromObject(this).toString();
     }
 }
