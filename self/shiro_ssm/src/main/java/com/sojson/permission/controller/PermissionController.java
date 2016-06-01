@@ -47,8 +47,8 @@ public class PermissionController extends BaseController {
 	@RequestMapping(value="index")
 	public ModelAndView index(String findContent,ModelMap modelMap){
 		modelMap.put("findContent", findContent);
-		Pagination<UPermission> role = permissionService.findPage(modelMap,pageNo,pageSize);
-		return new ModelAndView("permission/index","page",role);
+		Pagination<UPermission> permissions = permissionService.findPage(modelMap,pageNo,pageSize);
+		return new ModelAndView("permission/index","page",permissions);
 	}
 	/**
 	 * 权限添加

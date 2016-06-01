@@ -70,8 +70,28 @@
 						$('#formId').submit();
 					},1000);
 				},'json');
+			}
+			
+			function selectPermissionById(id){
+				$.post("/permission/selectPermissionById.shtml",{id:id},function(result){
+					if(result && result.length){
+						var html =[];
+						$.each(result,function(){
+							html.push('<div class="checkbox"><label>');
+							html.push('<input type="checkbox" id="');
+							html.push(this.id);
+							html.push("'");
+							html.push('"/>');
+							html.push(this.name);
+							html.push('</label></div>');
+						});
+						so.id('boxRoleForm').html(html.join(''));
+					}else{
+						return layer.msg('没有获取到权限数据，请先添加权限数据。',so.default);
+					}
 				
-				
+				},'json');
+				$('#selectPermission').modal();
 			}
 		</script>
 	</head>
@@ -100,20 +120,19 @@
 					<hr>
 					<table class="table table-bordered">
 						<tr>
-							<th><input type="checkbox" id="checkAll"/></th>
-							<th>用户</th>
-							<th>角色名称</th>
-							<th>操作</th>
+							<th width="5%"><input type="checkbox" id="checkAll"/></th>
+							<th width="15%">角色</th>
+							<th width="65%">权限</th>
+							<th width="15%">操作</th>
 						</tr>
 						<#if page?exists && page.list?size gt 0 >
 							<#list page.list as it>
 								<tr>
 									<td><input value="${it.id}" check='box' type="checkbox" /></td>
-									<td>${it.nickname}</td>
-									<td>-</td>
+									<td>${it.name}</td>
+									<td permissionIds="${it.permissionIds?default('')}">${it.permissionNames?default('-')}</td>
 									<td>
-										<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
-										<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:deleteById([${it.id}]);">设置角色</a>
+										<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:selectPermissionById(${it.id});">选择权限</a>
 									</td>
 								</tr>
 							</#list>
@@ -133,28 +152,21 @@
 			</div><#--/row-->
 			
 			<#--弹框-->
-			<div class="modal fade" id="addPermission" tabindex="-1" role="dialog" aria-labelledby="addPermissionLabel">
-			  <div class="modal-dialog" role="document">
+			<div class="modal fade bs-example-modal-sm"  id="selectPermission" tabindex="-1" role="dialog" aria-labelledby="selectPermissionLabel">
+			  <div class="modal-dialog modal-sm" role="document">
 			    <div class="modal-content">
 			      <div class="modal-header">
 			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="addPermissionLabel">添加权限</h4>
+			        <h4 class="modal-title" id="selectPermissionLabel">添加权限</h4>
 			      </div>
 			      <div class="modal-body">
 			        <form id="boxRoleForm">
-			          <div class="form-group">
-			            <label for="recipient-name" class="control-label">权限名称:</label>
-			            <input type="text" class="form-control" name="name" id="name" placeholder="请输入权限名称"/>
-			          </div>
-			          <div class="form-group">
-			            <label for="recipient-name" class="control-label">权限URL地址:</label>
-			            <input type="text" class="form-control" id="url" name="url"  placeholder="请输入权限URL地址">
-			          </div>
+			          ...
 			        </form>
 			      </div>
 			      <div class="modal-footer">
 			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" onclick="addPermission();" class="btn btn-primary">Save</button>
+			        <button type="button" onclick="selectPermission();" class="btn btn-primary">Save</button>
 			      </div>
 			    </div>
 			  </div>

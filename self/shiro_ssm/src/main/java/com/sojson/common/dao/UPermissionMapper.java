@@ -1,6 +1,9 @@
 package com.sojson.common.dao;
 
+import java.util.List;
+
 import com.sojson.common.model.UPermission;
+import com.sojson.permission.bo.UPermissionBo;
 
 public interface UPermissionMapper {
     int deleteByPrimaryKey(Long id);
@@ -14,4 +17,6 @@ public interface UPermissionMapper {
     int updateByPrimaryKeySelective(UPermission record);
 
     int updateByPrimaryKey(UPermission record);
+
+	List<UPermissionBo> selectPermissionById(Long id);
 }

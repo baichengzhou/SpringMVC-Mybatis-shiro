@@ -26,6 +26,8 @@
       </if>
       </where>
   </sql>
+  
+  <!-- 普通的分页查询 -->
   <select id="findAll" resultMap="BaseResultMap" >
   	 select 
     <include refid="Base_Column_List" />
@@ -38,8 +40,23 @@
   	<include refid="where_all" />
   </select>
   
-  
-  
+  <!-- 权限分配的分页查询 -->
+  <select id="findRoleAndPermission" resultType="com.sojson.permission.bo.RolePermissionAllocationBo">
+  	select ur.id,ur.name,group_concat(up.name) permissionNames,group_concat(up.id)permissionIds from 
+	u_role ur 
+	left join u_role_permission urp on urp.rid = ur.id
+	left join u_permission up on up.id = urp.pid
+	group by ur.id
+	<where>
+		<if test="findContent != null and findContent !='' " >
+	        and (
+	        LOWER(ur.name) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
+	        LOWER(ur.type) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+	        )
+      </if>
+	</where>
+  	<include refid="limit_sql" />
+  </select>
   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 

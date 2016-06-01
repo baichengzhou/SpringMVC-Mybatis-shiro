@@ -1,9 +1,11 @@
 package com.sojson.permission.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.sojson.common.model.UPermission;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.permission.bo.UPermissionBo;
 
 public interface PermissionService {
 
@@ -23,4 +25,5 @@ public interface PermissionService {
 
 	Pagination<UPermission> findPage(Map<String,Object> resultMap, Integer pageNo,
 			Integer pageSize);
+	List<UPermissionBo> selectPermissionById(Long id);
 }

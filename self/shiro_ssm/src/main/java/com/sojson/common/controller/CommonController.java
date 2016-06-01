@@ -10,6 +10,7 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.util.UrlPathHelper;
 
@@ -175,5 +176,12 @@ public class CommonController extends BaseController {
 		return new ModelAndView("common/kicked_out");
 	}
 	
+	/**海香测试*/
+    @RequestMapping(value="testJsonp")
+    @ResponseBody
+    public String testJsonp(String callback){
+    	
+    	return callback +"('test jsonp');";
+    }
 	
 }
