@@ -1,6 +1,7 @@
 package com.sojson.permission.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang.StringUtils;
@@ -14,9 +15,12 @@ import com.sojson.common.model.URole;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.permission.bo.RolePermissionAllocationBo;
+import com.sojson.permission.bo.UPermissionBo;
 import com.sojson.permission.service.RoleService;
 
 @Service
+@SuppressWarnings("unchecked")
 public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements RoleService {
 
 	@Autowired
@@ -56,13 +60,17 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 		return roleMapper.updateByPrimaryKeySelective(record);
 	}
 
-	@SuppressWarnings("unchecked")
+	
 	@Override
 	public Pagination<URole> findPage(Map<String, Object> resultMap,
 			Integer pageNo, Integer pageSize) {
 		return super.findPage(resultMap, pageNo, pageSize);
 	}
-
+	@Override
+	public Pagination<RolePermissionAllocationBo> findRoleAndPermissionPage(
+			Map<String, Object> resultMap, Integer pageNo, Integer pageSize) {
+		return super.findPage("findRoleAndPermission", "findCount", resultMap, pageNo, pageSize);
+	}
 	@Override
 	public Map<String, Object> deleteRoleById(String ids) {
 		Map<String,Object> resultMap = new HashMap<String,Object>();
@@ -95,5 +103,8 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 		}
 		return resultMap;
 	}
+
+
+	
 	
 }

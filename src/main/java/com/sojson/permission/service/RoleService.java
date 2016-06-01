@@ -4,6 +4,7 @@ import java.util.Map;
 
 import com.sojson.common.model.URole;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.permission.bo.RolePermissionAllocationBo;
 
 public interface RoleService {
 
@@ -23,4 +24,9 @@ public interface RoleService {
 			Integer pageSize);
 
 	Map<String, Object> deleteRoleById(String ids);
+
+	Pagination<RolePermissionAllocationBo> findRoleAndPermissionPage(
+			Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
+
+	
 }

@@ -16,6 +16,7 @@ import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.permission.bo.UPermissionBo;
 import com.sojson.permission.service.PermissionService;
 @Service
 public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> implements PermissionService {
@@ -104,6 +105,11 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 	public Pagination<UPermission> findPage(Map<String,Object> resultMap, Integer pageNo,
 			Integer pageSize) {
 		return super.findPage(resultMap, pageNo, pageSize);
+	}
+
+	@Override
+	public List<UPermissionBo> selectPermissionById(Long id) {
+		return permissionMapper.selectPermissionById(id);
 	}
 
 	
