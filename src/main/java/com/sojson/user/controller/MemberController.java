@@ -1,7 +1,11 @@
 package com.sojson.user.controller;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -56,6 +60,7 @@ public class MemberController extends BaseController {
 	 */
 	@RequestMapping(value="list")
 	public ModelAndView list(ModelMap map,Integer pageNo,String findContent){
+		
 		map.put("findContent", findContent);
 		Pagination<UUser> page = userService.findByPage(map,pageNo,pageSize);
 		map.put("page", page);

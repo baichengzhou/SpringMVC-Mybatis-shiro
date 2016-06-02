@@ -1,5 +1,7 @@
 package com.sojson.common.dao;
 
+import java.util.Set;
+
 import com.sojson.common.model.URole;
 
 public interface URoleMapper {
@@ -14,4 +16,6 @@ public interface URoleMapper {
     int updateByPrimaryKeySelective(URole record);
 
     int updateByPrimaryKey(URole record);
+
+	Set<String> findRoleByUserId(Long id);
 }

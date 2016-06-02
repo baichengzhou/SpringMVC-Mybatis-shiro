@@ -30,6 +30,12 @@ public class UUserRole  implements Serializable{
     /**{@link URole.id}*/
     private Long rid;
 
+    public UUserRole(Long uid,Long rid) {
+    	this.uid = uid;
+    	this.rid = rid;
+	}
+    public UUserRole() {
+    }
     public Long getUid() {
         return uid;
     }

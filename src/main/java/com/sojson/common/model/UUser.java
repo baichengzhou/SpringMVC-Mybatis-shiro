@@ -36,7 +36,7 @@ public class UUser implements Serializable{
     /**邮箱 | 登录帐号*/
     private String email;
     /**密码*/
-    private String pswd;
+    private transient String pswd;
     /**创建时间*/
     private Date createTime;
     /**最后登录时间*/
