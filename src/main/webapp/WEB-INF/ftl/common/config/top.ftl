@@ -33,8 +33,8 @@
 						<li><a href="/member/list.shtml">用户列表</a></li>
 						<li><a href="/member/online.shtml">在线用户</a></li>
 					</ul>
-				</li>	   
-				<@shiro.hasRole '8888'>
+				</li>	 
+				<@shiro.hasRole name='100003'>
 					<li class="dropdown ${(index==3)?string('active','')}">
 						<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="/permission/index.shtml">
 							权限管理<span class="caret"></span>
@@ -45,8 +45,8 @@
 							<li><a href="/permission/index.shtml">权限列表</a></li>
 							<li><a href="/permission/allocation.shtml">权限分配</a></li>
 						</ul>
-					</li>	            
-				</@shiro>         
+					</li>	
+				</@shiro.hasRole>              
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">
