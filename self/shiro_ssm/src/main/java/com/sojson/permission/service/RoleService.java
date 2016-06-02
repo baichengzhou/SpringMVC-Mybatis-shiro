@@ -1,6 +1,7 @@
 package com.sojson.permission.service;
 
 import java.util.Map;
+import java.util.Set;
 
 import com.sojson.common.model.URole;
 import com.sojson.core.mybatis.page.Pagination;
@@ -27,6 +28,8 @@ public interface RoleService {
 
 	Pagination<RolePermissionAllocationBo> findRoleAndPermissionPage(
 			Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
+
+	Set<String> findRoleByUserId(Long userId);
 
 	
 }

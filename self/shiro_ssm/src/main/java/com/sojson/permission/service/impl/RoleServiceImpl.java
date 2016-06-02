@@ -1,8 +1,8 @@
 package com.sojson.permission.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,6 @@ import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.permission.bo.RolePermissionAllocationBo;
-import com.sojson.permission.bo.UPermissionBo;
 import com.sojson.permission.service.RoleService;
 
 @Service
@@ -102,6 +101,11 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 			resultMap.put("message", "删除出现错误，请刷新后再试！");
 		}
 		return resultMap;
+	}
+
+	@Override
+	public Set<String> findRoleByUserId(Long userId) {
+		return roleMapper.findRoleByUserId(userId);
 	}
 
 

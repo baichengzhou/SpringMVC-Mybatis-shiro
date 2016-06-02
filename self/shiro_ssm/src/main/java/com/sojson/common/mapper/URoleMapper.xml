@@ -26,7 +26,9 @@
       </if>
       </where>
   </sql>
-  
+  <select id="findRoleByUserId" resultType="java.lang.String">
+  		select r.type from u_role r,u_user_role ur where ur.rid = r.id and ur.uid = #{id,jdbcType=BIGINT}
+  </select>
   <!-- 普通的分页查询 -->
   <select id="findAll" resultMap="BaseResultMap" >
   	 select 
@@ -40,13 +42,20 @@
   	<include refid="where_all" />
   </select>
   
+  <!-- 选择角色给用户 ，checkbox 列表-->
+  <select id="selectRoleByUserId" resultType="com.sojson.permission.bo.URoleBo">
+		select ur.id,ur.name,ur.type,ifnull(uu.id,0)marker from u_role ur
+		left join u_user_role uur on uur.uid = ur.id
+		left join (select id from u_user where id =#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+		group by ur.id
+  </select>
+  
   <!-- 权限分配的分页查询 -->
   <select id="findRoleAndPermission" resultType="com.sojson.permission.bo.RolePermissionAllocationBo">
-  	select ur.id,ur.name,group_concat(up.name) permissionNames,group_concat(up.id)permissionIds from 
+  	select ur.id,ur.type,ur.name,group_concat(up.name) permissionNames,group_concat(up.id)permissionIds from 
 	u_role ur 
 	left join u_role_permission urp on urp.rid = ur.id
 	left join u_permission up on up.id = urp.pid
-	group by ur.id
 	<where>
 		<if test="findContent != null and findContent !='' " >
 	        and (
@@ -55,6 +64,7 @@
 	        )
       </if>
 	</where>
+	group by ur.id
   	<include refid="limit_sql" />
   </select>
   

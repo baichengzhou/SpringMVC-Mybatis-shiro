@@ -30,6 +30,12 @@ public class URolePermission  implements Serializable{
     /**{@link UPermission.id}*/
     private Long pid;
 
+    public URolePermission() {
+	}
+    public URolePermission(Long rid,Long pid) {
+    	this.rid = rid;
+    	this.pid = pid;
+    }
     public Long getRid() {
         return rid;
     }

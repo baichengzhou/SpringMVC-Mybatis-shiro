@@ -10,6 +10,8 @@ public class RolePermissionAllocationBo implements Serializable {
 	private static final long serialVersionUID = 1L;
 	//角色ID
 	private Long id;
+	//角色type
+	private String type;
 	//角色Name
 	private String name;
 	//权限Name列转行，以,分割
@@ -31,6 +33,14 @@ public class RolePermissionAllocationBo implements Serializable {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public String getType() {
+		return type;
+	}
+
+	public void setType(String type) {
+		this.type = type;
 	}
 
 	public String getPermissionNames() {

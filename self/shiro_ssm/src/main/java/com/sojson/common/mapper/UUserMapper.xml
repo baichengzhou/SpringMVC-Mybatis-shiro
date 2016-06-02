@@ -23,8 +23,8 @@
   	<where>
   	<if test="findContent != null and findContent !='' " >
         and (
-        LOWER(nickname) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%") or
-        LOWER(email) like CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")
+        LOWER(nickname) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
+        LOWER(email) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
         )
       </if>
       </where>
@@ -39,6 +39,30 @@
   <select id="findCount" resultMap="BaseResultMap" >
  	 select count(id) from  u_user
   	<include refid="where_all" />
+  </select>
+  
+  
+  <!-- 用户权限分配的分页查询 -->
+  <select id="findUserAndRole" resultType="com.sojson.permission.bo.UserRoleAllocationBo">
+  	select u.id,u.nickname,u.email,u.create_time,u.last_login_time,u.status ,group_concat(ur.name) roleNames,group_concat(ur.id)roleIds from
+	 u_user u
+	left join u_user_role uur on uur.uid = u.id
+	left join u_role ur on ur.id = uur.rid
+	<where>
+  	<if test="findContent != null and findContent !='' " >
+        and (
+        LOWER(u.nickname) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%")) or
+        LOWER(u.email) like  LOWER(CONCAT("%",#{findContent,jdbcType=VARCHAR},"%"))
+        )
+      </if>
+      </where>
+	group by u.id 
+  </select>
+  <select id="selectRoleByUserId" resultType="com.sojson.permission.bo.URoleBo">
+	select ur.id,ur.name,ur.type,ifnull(uu.id,0)marker,uu.id userId from u_role ur
+		left join u_user_role uur on uur.rid = ur.id
+		left join (select id from u_user where id =#{id,jdbcType=BIGINT}) uu on uu.id = uur.uid
+		group by ur.id
   </select>
   
   <!-- 登录 -->
