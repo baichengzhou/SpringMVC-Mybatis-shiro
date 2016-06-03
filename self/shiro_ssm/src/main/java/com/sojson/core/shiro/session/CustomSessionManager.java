@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import org.apache.shiro.session.Session;
 import org.apache.shiro.subject.SimplePrincipalCollection;
@@ -14,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.sojson.common.model.UUser;
 import com.sojson.common.utils.LoggerUtils;
+import com.sojson.common.utils.StringUtils;
 import com.sojson.core.shiro.CustomShiroSessionDAO;
 import com.sojson.user.bo.UserOnlineBo;
 /**
@@ -36,6 +38,7 @@ import com.sojson.user.bo.UserOnlineBo;
  * @version 1.0,2016年5月27日 <br/>
  * 
  */
+@SuppressWarnings("unchecked")
 public class CustomSessionManager {
 
 	/**
@@ -67,7 +70,40 @@ public class CustomSessionManager {
 		
 		return list;
 	}
-
+	/**
+	 * 根据ID查询 SimplePrincipalCollection
+	 * @param userIds	用户ID
+	 * @return
+	 */
+	public List<SimplePrincipalCollection> getSimplePrincipalCollectionByUserId(Long...userIds){
+		//把userIds 转成Set，好判断
+		Set<Long> idset = (Set<Long>) StringUtils.array2Set(userIds);
+		//获取所有session
+		Collection<Session> sessions = customShiroSessionDAO.getActiveSessions();
+		//定义返回
+		List<SimplePrincipalCollection> list = new ArrayList<SimplePrincipalCollection>();
+		for (Session session : sessions) {
+			//获取SimplePrincipalCollection
+			Object obj = session.getAttribute(DefaultSubjectContext.PRINCIPALS_SESSION_KEY);
+			if(null != obj && obj instanceof SimplePrincipalCollection){
+				//强转
+				SimplePrincipalCollection spc = (SimplePrincipalCollection)obj;
+				//判断用户，匹配用户ID。
+				obj = spc.getPrimaryPrincipal();
+				if(null != obj && obj instanceof UUser){
+					UUser user = (UUser)obj;
+					//比较用户ID，符合即加入集合
+					if(null != user && idset.contains(user.getId())){
+						list.add(spc);
+					}
+				}
+			}
+		}
+		return list;
+	}
+	
+	
+	
 	/**
 	 * 获取单个Session
 	 * @param sessionId
@@ -114,7 +150,6 @@ public class CustomSessionManager {
 					status = sessionStatus.getOnlineStatus();
 				}
 				userBo.setSessionStatus(status);
-				
 				return userBo;
 			}
 		}
@@ -169,7 +204,6 @@ public class CustomSessionManager {
 				customShiroSessionDAO.update(session);
 			}
 		}
-		
 	}
 	
 	

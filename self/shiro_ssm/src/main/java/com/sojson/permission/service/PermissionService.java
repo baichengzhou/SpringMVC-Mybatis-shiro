@@ -2,6 +2,7 @@ package com.sojson.permission.service;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.sojson.common.model.UPermission;
 import com.sojson.core.mybatis.page.Pagination;
@@ -30,4 +31,6 @@ public interface PermissionService {
 	Map<String, Object> addPermission2Role(Long roleId,String ids);
 
 	Map<String, Object> deleteByRids(String roleIds);
+	//根据用户ID查询权限（permission），放入到Authorization里。
+	Set<String> findPermissionByUserId(Long userId);
 }
