@@ -1,9 +1,9 @@
 package com.sojson.core.shiro.token;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
 
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AccountException;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -83,37 +83,32 @@ public class SampleRealm extends AuthorizingRealm {
      */  
     @Override  
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {  
-//    	Subject currentUser = SecurityUtils.getSubject();
-//    	UUser user = (UUser) currentUser.getPrincipal();
-//    	Set<String> roles = new TreeSet<String>();
-//    	roles.add("role:" + user.getLevel());
+    	
     	Long userId = TokenManager.getUserId();
 		SimpleAuthorizationInfo info =  new SimpleAuthorizationInfo();
+		//根据用户ID查询角色（role），放入到Authorization里。
 		Set<String> roles = roleService.findRoleByUserId(userId);
 		info.setRoles(roles);
+		//根据用户ID查询权限（permission），放入到Authorization里。
+		Set<String> permissions = permissionService.findPermissionByUserId(userId);
+		info.setStringPermissions(permissions);
         return info;  
     }  
-    /** 
-     * 异常转换 
-     * @param e 
-     * @return 
-     */  
-//    private AuthenticationException translateAuthenticationException(Exception e) {  
-//        if (e instanceof AuthenticationException) {  
-//            return (AuthenticationException) e;  
-//        }  
-//        if(e instanceof DisabledAccountException){  
-//            return (DisabledAccountException)e;  
-//        }  
-//        if(e instanceof UnknownAccountException){  
-//            return (UnknownAccountException)e;  
-//        }  
-//        return new AuthenticationException(e);  
-//    } 
-    
-	public void clearCachedAuthorizationInfo(String principal) {
+    /**
+     * 清空当前用户权限信息
+     */
+	public  void clearCachedAuthorizationInfo() {
+		PrincipalCollection principalCollection = SecurityUtils.getSubject().getPrincipals();
 		SimplePrincipalCollection principals = new SimplePrincipalCollection(
-				principal, getName());
-		clearCachedAuthorizationInfo(principals);
+				principalCollection, getName());
+		super.clearCachedAuthorizationInfo(principals);
+	}
+	/**
+	 * 指定principalCollection 清楚
+	 */
+	public void clearCachedAuthorizationInfo(PrincipalCollection principalCollection) {
+		SimplePrincipalCollection principals = new SimplePrincipalCollection(
+				principalCollection, getName());
+		super.clearCachedAuthorizationInfo(principals);
 	}
 }

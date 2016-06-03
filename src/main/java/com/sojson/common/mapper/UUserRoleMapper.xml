@@ -14,7 +14,7 @@
   	delete from u_user_role where uid =  #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteRoleByUserIds">
-  	delete from u_role_permission where uid in(${userIds})
+  	delete from u_user_role where uid in(${userIds})
   </delete>
   <insert id="insertSelective" parameterType="com.sojson.common.model.UUserRole" >
     insert into u_user_role

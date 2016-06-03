@@ -28,7 +28,7 @@ public interface RoleService {
 
 	Pagination<RolePermissionAllocationBo> findRoleAndPermissionPage(
 			Map<String, Object> resultMap, Integer pageNo, Integer pageSize);
-
+	//根据用户ID查询角色（role），放入到Authorization里。
 	Set<String> findRoleByUserId(Long userId);
 
 	

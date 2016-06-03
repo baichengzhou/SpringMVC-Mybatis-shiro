@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 import java.util.Set;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -366,6 +367,20 @@ public class StringUtils extends org.apache.commons.lang.StringUtils{
 			}
 		}
 		return list;
+	}
+	/**
+	 * 把数组转换成set
+	 * @param array
+	 * @return
+	 */
+	public static Set<?> array2Set(Object[] array) {
+		Set<Object> set = new TreeSet<Object>();
+		for (Object id : array) {
+			if(null != id){
+				set.add(id);
+			}
+		}
+		return set;
 	}
    
 }

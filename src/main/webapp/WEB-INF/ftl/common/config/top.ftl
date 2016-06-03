@@ -24,17 +24,25 @@
 						<li><a href="/user/updatePswd.shtml" >密码修改</a></li>
 						<li><a href="/permission/mypermission.shtml">我的权限</a></li>
 					</ul>
-				</li>	            
+				</li>	  
+				<#--拥有 角色888888（管理员） ||  100002（用户中心）-->
+				<@shiro.hasAnyRoles name='888888,100002'>          
 				<li class="dropdown ${(index==2)?string('active','')}">
 					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="/member/list.shtml">
 						用户中心<span class="caret"></span>
 					</a>
 					<ul class="dropdown-menu">
-						<li><a href="/member/list.shtml">用户列表</a></li>
-						<li><a href="/member/online.shtml">在线用户</a></li>
+						<@shiro.hasPermission name="/member/list.shtml">
+							<li><a href="/member/list.shtml">用户列表</a></li>
+						</@shiro.hasPermission>
+						<@shiro.hasPermission name="/member/online.shtml">
+							<li><a href="/member/online.shtml">在线用户</a></li>
+						</@shiro.hasPermission>
 					</ul>
-				</li>	 
-				<@shiro.hasRole name='100003'>
+				</li>	
+				</@shiro.hasAnyRoles>         
+				<#--拥有 角色888888（管理员） ||  100003（权限频道）-->
+				<@shiro.hasAnyRoles name='888888,100003'>
 					<li class="dropdown ${(index==3)?string('active','')}">
 						<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" class="dropdown-toggle" href="/permission/index.shtml">
 							权限管理<span class="caret"></span>
@@ -46,7 +54,7 @@
 							<li><a href="/permission/allocation.shtml">权限分配</a></li>
 						</ul>
 					</li>	
-				</@shiro.hasRole>              
+				</@shiro.hasAnyRoles>              
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">

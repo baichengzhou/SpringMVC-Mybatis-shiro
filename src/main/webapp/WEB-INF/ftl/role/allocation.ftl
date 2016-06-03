@@ -34,7 +34,7 @@
 			function deleteById(ids){
 				var index = layer.confirm("确定清除这"+ ids.length +"个用户的角色？",function(){
 					var load = layer.load();
-					$.post('/role/clearRoleByUserIds.shtml',{roleIds:ids.join(',')},function(result){
+					$.post('/role/clearRoleByUserIds.shtml',{userIds:ids.join(',')},function(result){
 						layer.close(load);
 						if(result && result.status != 200){
 							return layer.msg(result.message,so.default),!0;
