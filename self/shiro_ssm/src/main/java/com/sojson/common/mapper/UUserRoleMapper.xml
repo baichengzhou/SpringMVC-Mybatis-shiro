@@ -16,6 +16,11 @@
   <delete id="deleteRoleByUserIds">
   	delete from u_user_role where uid in(${userIds})
   </delete>
+  <!-- 根据用户roleId查询用户ID -->
+  <select id="findUserIdByRoleId" resultType="long">
+  	select uid from u_user_role where rid =  #{id,jdbcType=BIGINT}
+  </select>
+  
   <insert id="insertSelective" parameterType="com.sojson.common.model.UUserRole" >
     insert into u_user_role
     <trim prefix="(" suffix=")" suffixOverrides="," >

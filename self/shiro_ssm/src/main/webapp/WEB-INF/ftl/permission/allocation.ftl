@@ -80,9 +80,10 @@
 					layer.close(load);
 					if(result && result.length){
 						var html =[];
+						html.push('<div class="checkbox"><label><input type="checkbox"  selectAllBox="">全选</label></div>');
 						$.each(result,function(){
 							html.push("<div class='checkbox'><label>");
-							html.push("<input type='checkbox' id='");
+							html.push("<input type='checkbox' selectBox='' id='");
 							html.push(this.id);
 							html.push("'");
 							if(this.check){
@@ -94,7 +95,10 @@
 							html.push(this.name);
 							html.push('</label></div>');
 						});
-						return so.id('boxRoleForm').html(html.join('')) & $('#selectPermission').modal(),$('#selectRoleId').val(id),!1;
+						//初始化全选。
+						return so.id('boxRoleForm').html(html.join('')),
+						so.checkBoxInit('[selectAllBox]','[selectBox]'),
+						$('#selectPermission').modal(),$('#selectRoleId').val(id),!1;
 					}else{
 						return layer.msg('没有获取到权限数据，请先添加权限数据。',so.default);
 					}

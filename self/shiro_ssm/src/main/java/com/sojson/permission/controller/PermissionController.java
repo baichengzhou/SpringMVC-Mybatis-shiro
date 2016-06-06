@@ -43,9 +43,15 @@ public class PermissionController extends BaseController {
 	
 	@Autowired
 	PermissionService permissionService;
-	
+	/**
+	 * 权限列表
+	 * @param findContent	查询内容
+	 * @param pageNo		页码
+	 * @param modelMap		参数回显
+	 * @return
+	 */
 	@RequestMapping(value="index")
-	public ModelAndView index(String findContent,ModelMap modelMap){
+	public ModelAndView index(String findContent,ModelMap modelMap,Integer pageNo){
 		modelMap.put("findContent", findContent);
 		Pagination<UPermission> permissions = permissionService.findPage(modelMap,pageNo,pageSize);
 		return new ModelAndView("permission/index","page",permissions);

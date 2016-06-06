@@ -71,11 +71,11 @@
 	</welcome-file-list>
 	<error-page>
 		<error-code>404</error-code>
-		<location>/404.shtml</location>
+		<location>/open/404.shtml</location>
 	</error-page>
 	<error-page>
 		<error-code>500</error-code>
-		<location>/404.shtml</location>
+		<location>/open/404.shtml</location>
 	</error-page>
 	<!-- 配置session超时时间，单位分钟 -->
 	<session-config>

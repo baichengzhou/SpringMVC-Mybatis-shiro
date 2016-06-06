@@ -1,6 +1,7 @@
 package com.sojson.permission.service.impl;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -15,6 +16,7 @@ import com.sojson.common.model.URole;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.permission.bo.RolePermissionAllocationBo;
 import com.sojson.permission.service.RoleService;
 
@@ -108,7 +110,11 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 		return roleMapper.findRoleByUserId(userId);
 	}
 
-
-	
+	@Override
+	public List<URole> findNowAllPermission() {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("userId", TokenManager.getUserId());
+		return roleMapper.findNowAllPermission(map);
+	}
 	
 }

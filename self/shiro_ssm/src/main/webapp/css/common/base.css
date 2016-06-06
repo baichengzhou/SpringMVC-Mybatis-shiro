@@ -365,12 +365,12 @@ article.page .post-content h2 {
 .mt10 {
     margin-top: 10px !important;
 }
-.icon {
+/*.icon {
     background-image: url("http://cdn.sojson.com/images/ticon.png");
     background-repeat: no-repeat;
     display: inline-block;
     overflow: hidden;
-}
+}*/
 .w90 {
     width: 100px;
 }

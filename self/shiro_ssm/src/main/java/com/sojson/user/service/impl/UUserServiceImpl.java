@@ -17,6 +17,7 @@ import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.core.shiro.session.CustomSessionManager;
+import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.permission.bo.URoleBo;
 import com.sojson.permission.bo.UserRoleAllocationBo;
 import com.sojson.user.service.UUserService;
@@ -176,7 +177,8 @@ public class UUserServiceImpl extends BaseMybatisDao<UUserMapper> implements UUs
 			resultMap.put("status", 200);
 			resultMap.put("message", "操作失败，请重试！");
 		}
-		
+		//清空用户的权限，迫使再次获取权限的时候，得重新加载
+		TokenManager.clearUserAuthByUserId(userId);
 		resultMap.put("count", count);
 		return resultMap;
 	}

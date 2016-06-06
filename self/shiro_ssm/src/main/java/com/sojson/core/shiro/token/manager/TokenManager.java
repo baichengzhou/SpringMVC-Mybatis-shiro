@@ -1,5 +1,7 @@
 package com.sojson.core.shiro.token.manager;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;
@@ -31,7 +33,9 @@ import com.sojson.core.shiro.token.ShiroToken;
  * Shiro管理下的Token工具类
  */
 public class TokenManager {
+	//用户登录管理
 	public static final SampleRealm realm = SpringContextUtil.getBean("sampleRealm",SampleRealm.class);
+	//用户session管理
 	public static final CustomSessionManager customSessionManager = SpringContextUtil.getBean("customSessionManager",CustomSessionManager.class);
 	/**
 	 * 获取当前登录的用户User对象
@@ -145,8 +149,12 @@ public class TokenManager {
 		 * 当然还有很多直接或者间接的方法，此处不纠结。
 		 */
 	}
+	
+	
+	
+	
 	/**
-	 * 根据UserIds 清空权限信息。
+	 * 根据UserIds 	清空权限信息。
 	 * @param id	用户ID
 	 */
 	public static void clearUserAuthByUserId(Long...userIds){
@@ -157,5 +165,17 @@ public class TokenManager {
 		for (SimplePrincipalCollection simplePrincipalCollection : result) {
 			realm.clearCachedAuthorizationInfo(simplePrincipalCollection);
 		}
+	}
+
+
+	/**
+	 * 方法重载
+	 * @param userIds
+	 */
+	public static void clearUserAuthByUserId(List<Long> userIds) {
+		if(null == userIds || userIds.size() == 0){
+			return ;
+		}
+		clearUserAuthByUserId(userIds.toArray(new Long[0]));
 	}
 }

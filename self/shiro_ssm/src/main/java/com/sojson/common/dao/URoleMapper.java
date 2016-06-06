@@ -1,5 +1,7 @@
 package com.sojson.common.dao;
 
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.sojson.common.model.URole;
@@ -18,4 +20,6 @@ public interface URoleMapper {
     int updateByPrimaryKey(URole record);
 
 	Set<String> findRoleByUserId(Long id);
+
+	List<URole> findNowAllPermission(Map<String, Object> map);
 }
