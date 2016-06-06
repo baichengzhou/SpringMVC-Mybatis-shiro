@@ -1,6 +1,8 @@
 package com.sojson.common.model;
 
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
 
 import net.sf.json.JSONObject;
 /**
@@ -30,7 +32,9 @@ public class URole  implements Serializable{
     private String name;
     /**角色类型*/
     private String type;
-
+    //***做 role --> permission 一对多处理
+    private List<UPermission> permissions = new LinkedList<UPermission>();
+    
     public Long getId() {
         return id;
     }
@@ -51,7 +55,15 @@ public class URole  implements Serializable{
         return type;
     }
 
-    public void setType(String type) {
+    public List<UPermission> getPermissions() {
+		return permissions;
+	}
+
+	public void setPermissions(List<UPermission> permissions) {
+		this.permissions = permissions;
+	}
+
+	public void setType(String type) {
         this.type = type;
     }
     public String toString(){

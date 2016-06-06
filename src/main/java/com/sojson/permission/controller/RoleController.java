@@ -1,6 +1,10 @@
 package com.sojson.permission.controller;
 
+import java.util.List;
 import java.util.Map;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -16,6 +20,7 @@ import com.sojson.common.model.URole;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.mybatis.page.Pagination;
 import com.sojson.permission.service.RoleService;
+import com.sojson.user.manager.UserManager;
 /**
  * 
  * 开发公司：itboy.net<br/>
@@ -80,5 +85,18 @@ public class RoleController extends BaseController {
 	@ResponseBody
 	public Map<String,Object> deleteRoleById(String ids){
 		return roleService.deleteRoleById(ids);
+	}
+	/**
+	 * 我的权限
+	 * @return
+	 */
+	@RequestMapping(value="mypermission",method=RequestMethod.GET)
+	public ModelAndView mypermission(){
+		//查询我所有的角色 ---> 权限
+		List<URole> roles = roleService.findNowAllPermission();
+		//把查询出来的roles 转换成bootstarp 的 tree数据
+		List<Map<String, Object>> data = UserManager.toTreeData(roles);
+		String jsonstr = JSONArray.fromObject(data).toString();
+		return new ModelAndView("permission/mypermission","data",data);
 	}
 }

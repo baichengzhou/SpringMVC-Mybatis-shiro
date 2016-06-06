@@ -68,6 +68,27 @@
   	<include refid="limit_sql" />
   </select>
   
+  <!-- Mybatis 一对多 Demo  begin -->
+  
+  <!-- 查询用户全部的role & permission -->
+  <resultMap id="findNowAllPermission_resultMap" extends="BaseResultMap" type="com.sojson.common.model.URole" >
+  	<collection property="permissions" javaType="com.sojson.common.model.UPermission">
+  	 	<id column="pid" property="id" jdbcType="BIGINT" />
+    	<result column="pname" property="name" jdbcType="VARCHAR" />
+    	<result column="url" property="url" jdbcType="VARCHAR" />
+  	</collection>
+  </resultMap>
+  <select id="findNowAllPermission" resultMap="findNowAllPermission_resultMap">
+  	select ur.id,ur.name,ur.type ,up.id pid,up.url,up.name pname 
+		from u_role ur
+		left join (select rid from u_user_role where uid = #{userId,jdbcType=BIGINT}) uur on uur.rid = ur.id
+		left join u_role_permission urp on urp.rid = ur.id
+		left join u_permission up on up.id = urp.pid
+  </select>
+   <!-- Mybatis 一对多 Demo  end -->
+   
+   
+   
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />

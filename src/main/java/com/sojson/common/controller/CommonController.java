@@ -32,7 +32,7 @@ public class CommonController extends BaseController {
 	 */
 	@RequestMapping("404")
 	public ModelAndView _404(HttpServletRequest request){
-		ModelAndView view = new ModelAndView("index/404");
+		ModelAndView view = new ModelAndView("common/404");
 		return view;
 	}
 	/**
@@ -42,7 +42,7 @@ public class CommonController extends BaseController {
 	 */
 	@RequestMapping("500")
 	public ModelAndView _500(HttpServletRequest request){
-		ModelAndView view = new ModelAndView("index/500");
+		ModelAndView view = new ModelAndView("common/500");
 		
 		Throwable t = (Throwable)request.getAttribute("javax.servlet.error.exception");
 		String defaultMessage = "未知" ;

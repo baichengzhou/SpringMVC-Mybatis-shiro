@@ -11,12 +11,14 @@ import org.springframework.stereotype.Service;
 import com.sojson.common.dao.UPermissionMapper;
 import com.sojson.common.dao.URolePermissionMapper;
 import com.sojson.common.dao.UUserMapper;
+import com.sojson.common.dao.UUserRoleMapper;
 import com.sojson.common.model.UPermission;
 import com.sojson.common.model.URolePermission;
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
 import com.sojson.core.mybatis.BaseMybatisDao;
 import com.sojson.core.mybatis.page.Pagination;
+import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.permission.bo.UPermissionBo;
 import com.sojson.permission.service.PermissionService;
 @Service
@@ -28,6 +30,8 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 	UUserMapper userMapper;
 	@Autowired
 	URolePermissionMapper rolePermissionMapper;
+	@Autowired
+	UUserRoleMapper userRoleMapper;
 	
 	@Override
 	public int deleteByPrimaryKey(Long id) {
@@ -145,7 +149,10 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 			resultMap.put("status", 200);
 			resultMap.put("message", "操作失败，请重试！");
 		}
+		//清空拥有角色Id为：roleId 的用户权限已加载数据
+		List<Long> userIds = userRoleMapper.findUserIdByRoleId(roleId);
 		
+		TokenManager.clearUserAuthByUserId(userIds);
 		resultMap.put("count", count);
 		return resultMap;
 	}
