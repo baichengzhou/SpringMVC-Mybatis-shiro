@@ -87,16 +87,24 @@ public class RoleController extends BaseController {
 		return roleService.deleteRoleById(ids);
 	}
 	/**
-	 * 我的权限
+	 * 我的权限页面
 	 * @return
 	 */
 	@RequestMapping(value="mypermission",method=RequestMethod.GET)
 	public ModelAndView mypermission(){
+		return new ModelAndView("permission/mypermission");
+	}
+	/**
+	 * 我的权限 bootstrap tree data
+	 * @return
+	 */
+	@RequestMapping(value="getPermissionTree",method=RequestMethod.POST)
+	@ResponseBody
+	public List<Map<String, Object>> getPermissionTree(){
 		//查询我所有的角色 ---> 权限
 		List<URole> roles = roleService.findNowAllPermission();
 		//把查询出来的roles 转换成bootstarp 的 tree数据
 		List<Map<String, Object>> data = UserManager.toTreeData(roles);
-		String jsonstr = JSONArray.fromObject(data).toString();
-		return new ModelAndView("permission/mypermission","data",data);
+		return data;
 	}
 }

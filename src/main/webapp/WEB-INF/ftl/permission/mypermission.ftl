@@ -8,6 +8,22 @@
 		<link   rel="shortcut icon" href="http://img.wenyifan.net/images/favicon.ico" />
 		<link href="/js/common/bootstrap/3.3.5/css/bootstrap.min.css?${_v}" rel="stylesheet"/>
 		<link href="/css/common/base.css?${_v}" rel="stylesheet"/>
+	</head>
+	<body data-target="#one" data-spy="scroll">
+		
+		<@_top.top 1/>
+		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
+			<#--row-->
+			<div class="row">
+				<@_left.user 2/>
+				<div class="col-md-10">
+					<h2>我的权限</h2>
+					<hr>
+					<div id="getPermissionTree" ></div>
+				</div>
+			</div>
+			<#--/row-->
+		</div>
 		<script  src="http://open.sojson.com/common/jquery/jquery1.8.3.min.js"></script>
 		<script  src="/js/common/layer/layer.js"></script>
 		<script  src="/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
@@ -15,28 +31,18 @@
 		<script  src="/js/shiro.demo.js"></script>
 		<script >
 			$(function(){
-        $('#treeview1').treeview({
-          color: "#428bca",
-          enableLinks: true,
-          showTags: true,
-          data: ${data}
-        });
+				//加载 permission tree data
+				var load = layer.load();
+				$.post("getPermissionTree.shtml",{},function(data){
+					layer.close(load);
+					$('#getPermissionTree').treeview({
+			           color: "#428bca",
+			          nodeIcon: "glyphicon glyphicon-user",
+			          showTags: true,
+			          data: data
+			        });
+				},'json');
 			});
 		</script>
-	</head>
-	<body data-target="#one" data-spy="scroll">
-		
-		<@_top.top 2/>
-		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
-			<div class="row">
-				<@_left.member 1/>
-				<div class="col-md-10">
-					<h2>我的权限</h2>
-					<hr>
-					<div id="treeview1" class=""></div>
-				</div>
-			</div><#--/row-->
-		</div>
-			
 	</body>
 </html>

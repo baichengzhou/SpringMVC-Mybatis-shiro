@@ -11,7 +11,7 @@
           </ul>
 	  </li>
 	  <li class="${(index==2)?string('active',' ')} dropdown">
-	      <a href="/permission/mypermission.shtml">
+	      <a href="/role/mypermission.shtml">
 	    	 <i class="glyphicon glyphicon-chevron-right"></i>我的权限
 	      </a>
 	  </li>

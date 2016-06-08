@@ -46,7 +46,7 @@ public class UserManager {
 			map.put("text", u.getName());//名称
 			map.put("href", "javascript:void(0)");//链接
 			List<UPermission> ps = u.getPermissions();
-			map.put("tags", String.format("['%s']", ps.size()));//显示子数据条数
+			map.put("tags",  new Integer[]{ps.size()});//显示子数据条数
 			if(null != ps && ps.size() > 0){
 				List<Map<String,Object>> list = new LinkedList<Map<String,Object>>();
 				//权限列表
@@ -54,7 +54,7 @@ public class UserManager {
 					Map<String,Object> mapx = new LinkedHashMap<String, Object>();
 					mapx.put("text", up.getName());//权限名称
 					mapx.put("href", up.getUrl());//权限url
-					mapx.put("tags", "['0']");//没有下一级
+					//mapx.put("tags", "0");//没有下一级
 					list.add(mapx);
 				}
 				map.put("nodes", list);
