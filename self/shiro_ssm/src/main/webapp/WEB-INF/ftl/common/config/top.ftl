@@ -22,7 +22,7 @@
 						<li><a href="/user/index.shtml">个人资料</a></li>
 						<li><a href="/user/updateSelf.shtml" >资料修改</a></li>
 						<li><a href="/user/updatePswd.shtml" >密码修改</a></li>
-						<li><a href="/permission/mypermission.shtml">我的权限</a></li>
+						<li><a href="/role/mypermission.shtml">我的权限</a></li>
 					</ul>
 				</li>	  
 				<#--拥有 角色888888（管理员） ||  100002（用户中心）-->
