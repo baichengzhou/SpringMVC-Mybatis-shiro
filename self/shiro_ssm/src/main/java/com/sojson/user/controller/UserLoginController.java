@@ -105,7 +105,7 @@ public class UserLoginController extends BaseController {
 		LoggerUtils.fmtDebug(getClass(), "注册插入完毕！", JSONObject.fromObject(entity).toString());
 		entity = TokenManager.login(entity, Boolean.TRUE);
 		LoggerUtils.fmtDebug(getClass(), "注册后，登录完毕！", JSONObject.fromObject(entity).toString());
-		resultMap.put("message", "验证码不正确！");
+		resultMap.put("message", "注册成功！");
 		resultMap.put("status", 200);
 		return resultMap;
 	}
