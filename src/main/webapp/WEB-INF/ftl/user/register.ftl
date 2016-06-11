@@ -64,7 +64,6 @@
 			    	var error= form.find(".error");
 			    	var tops = ['27px','96px','165px','235px','304px','372px'];
 			    	var inputs = $("form :text,form :password");
-			    	console.log(inputs.length)
 			    	for(var i=0;i<inputs.length;i++){
 			    		var self = $(inputs[i]);
 			    		if(self.val() == ''){
