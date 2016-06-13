@@ -218,11 +218,6 @@
 		    <version>1.0.6</version>
 		</dependency>
 		<dependency>
-		    <groupId>org.freemarker</groupId>
-		    <artifactId>freemarker</artifactId>
-		    <version>2.3.20</version>
-		</dependency>
-		<dependency>
 		    <groupId>net.sf.json-lib</groupId>
 		    <artifactId>json-lib</artifactId>
 		    <version>2.4</version>
@@ -230,8 +225,23 @@
 		</dependency>
 		<!-- 其他常用包 end'-->
 
-
-
+		<!-- freemarker begin -->
+		<dependency>
+		    <groupId>org.freemarker</groupId>
+		    <artifactId>freemarker</artifactId>
+		    <version>2.3.20</version>
+		</dependency>
+		<!-- freemarker begin -->
+		<!-- freemarker + shiro（标签） begin -->
+		<dependency>
+		    <groupId>net.mingsoft</groupId>
+		    <artifactId>shiro-freemarker-tags</artifactId>
+		    <version>0.1</version>
+		</dependency>
+		<!-- freemarker + shiro（标签） begin -->
+		
+		
+		
 		<!-- shiro begin -->
 		<dependency>
 			<artifactId>quartz</artifactId>
