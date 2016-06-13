@@ -16,7 +16,7 @@
 			so.init(function(){
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
-				
+				<@shiro.hasPermission name="/permission/clearPermissionByRoleIds.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
@@ -29,7 +29,9 @@
 					});
 					return deleteById(array);
 				});
+				</@shiro.hasPermission>
 			});
+			<@shiro.hasPermission name="/permission/clearPermissionByRoleIds.shtml">
 			<#--根据ID数组清空角色的权限-->
 			function deleteById(ids){
 				var index = layer.confirm("确定清除这"+ ids.length +"个角色的权限？",function(){
@@ -48,6 +50,8 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/permission/addPermission2Role.shtml">
 			<#--选择权限后保存-->
 			function selectPermission(){
 				var checked = $("#boxRoleForm  :checked");
@@ -103,8 +107,8 @@
 						return layer.msg('没有获取到权限数据，请先添加权限数据。',so.default);
 					}
 				},'json');
-				
 			}
+			</@shiro.hasPermission>
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -125,7 +129,9 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">清空角色权限</button>
+				         	<@shiro.hasPermission name="/permission/clearPermissionByRoleIds.shtml">
+				         		<button type="button" id="deleteAll" class="btn  btn-danger">清空角色权限</button>
+				         	</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
@@ -146,7 +152,9 @@
 									<td>${it.type}</td>
 									<td permissionIds="${it.permissionIds?default('')}">${it.permissionNames?default('-')}</td>
 									<td>
-										<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:selectPermissionById(${it.id});">选择权限</a>
+										<@shiro.hasPermission name="/permission/addPermission2Role.shtml">
+											<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:selectPermissionById(${it.id});">选择权限</a>
+										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>

@@ -16,7 +16,7 @@
 		so.init(function(){
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
-				
+				<@shiro.hasPermission name="/role/clearRoleByUserIds.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
@@ -29,7 +29,9 @@
 					});
 					return deleteById(array);
 				});
+				</@shiro.hasPermission>
 			});
+			<@shiro.hasPermission name="/role/clearRoleByUserIds.shtml">
 			<#--根据ID数组清空用户的角色-->
 			function deleteById(ids){
 				var index = layer.confirm("确定清除这"+ ids.length +"个用户的角色？",function(){
@@ -48,6 +50,8 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/role/addRole2User.shtml">
 			<#--选择角色后保存-->
 			function selectRole(){
 				var checked = $("#boxRoleForm  :checked");
@@ -99,8 +103,8 @@
 						return layer.msg('没有获取到用户数据，请先注册数据。',so.default);
 					}
 				},'json');
-				
 			}
+			</@shiro.hasPermission>
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -121,7 +125,9 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">清空用户角色</button>
+				         	<@shiro.hasPermission name="/role/clearRoleByUserIds.shtml">
+				         		<button type="button" id="deleteAll" class="btn  btn-danger">清空用户角色</button>
+			         		</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
@@ -144,7 +150,9 @@
 									<td>${(it.status==1)?string('有效','禁止')}</td>
 									<td roleIds="${it.roleIds?default('')}">${it.roleNames?default('-')}</td>
 									<td>
-										<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:selectRoleById(${it.id});">选择角色</a>
+										<@shiro.hasPermission name="/role/addRole2User.shtml">
+											<i class="glyphicon glyphicon-share-alt"></i><a href="javascript:selectRoleById(${it.id});">选择角色</a>
+										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>

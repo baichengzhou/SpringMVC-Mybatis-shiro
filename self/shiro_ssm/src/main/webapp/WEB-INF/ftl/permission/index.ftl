@@ -16,7 +16,7 @@
 			so.init(function(){
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
-				
+				<@shiro.hasPermission name="/permission/deletePermissionById.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
@@ -29,7 +29,9 @@
 					});
 					return deleteById(array);
 				});
+				</@shiro.hasPermission>
 			});
+			<@shiro.hasPermission name="/permission/deletePermissionById.shtml">
 			<#--根据ID数组删除角色-->
 			function deleteById(ids){
 				var index = layer.confirm("确定这"+ ids.length +"个权限？",function(){
@@ -48,6 +50,8 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/permission/addPermission.shtml">
 			<#--添加权限-->
 			function addPermission(){
 				var name = $('#name').val(),
@@ -70,9 +74,8 @@
 						$('#formId').submit();
 					},1000);
 				},'json');
-				
-				
 			}
+			</@shiro.hasPermission>
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -93,8 +96,12 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<a class="btn btn-success" onclick="$('#addPermission').modal();">增加权限</a>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	<@shiro.hasPermission name="/permission/addPermission.shtml">
+				         		<a class="btn btn-success" onclick="$('#addPermission').modal();">增加权限</a>
+				         	</@shiro.hasPermission>
+				         	<@shiro.hasPermission name="/permission/deletePermissionById.shtml">
+				         		<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
@@ -112,7 +119,9 @@
 									<td>${it.name?default('-')}</td>
 									<td>${it.url?default('-')}</td>
 									<td>
-										<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
+										<@shiro.hasPermission name="/permission/deletePermissionById.shtml">
+											<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
+										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
@@ -130,7 +139,7 @@
 					</form>
 				</div>
 			</div><#--/row-->
-			
+			<@shiro.hasPermission name="/permission/addPermission.shtml">
 			<#--弹框-->
 			<div class="modal fade" id="addPermission" tabindex="-1" role="dialog" aria-labelledby="addPermissionLabel">
 			  <div class="modal-dialog" role="document">
@@ -159,7 +168,7 @@
 			  </div>
 			</div>
 			<#--/弹框-->
-			
+			</@shiro.hasPermission>
 		</div>
 			
 	</body>

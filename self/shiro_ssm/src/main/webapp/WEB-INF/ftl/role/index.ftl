@@ -17,6 +17,7 @@
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
 				
+				<@shiro.hasPermission name="/role/deleteRoleById.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
@@ -29,7 +30,9 @@
 					});
 					return deleteById(array);
 				});
+				</@shiro.hasPermission>
 			});
+			<@shiro.hasPermission name="/role/deleteRoleById.shtml">
 			<#--根据ID数组删除角色-->
 			function deleteById(ids){
 				var index = layer.confirm("确定这"+ ids.length +"个角色？",function(){
@@ -48,6 +51,8 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/role/addRole.shtml">
 			<#--添加角色-->
 			function addRole(){
 				var name = $('#name').val(),
@@ -70,9 +75,8 @@
 						$('#formId').submit();
 					},1000);
 				},'json');
-				
-				
 			}
+			</@shiro.hasPermission>
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -93,8 +97,12 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<a class="btn btn-success" onclick="$('#addrole').modal();">增加角色</a>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	<@shiro.hasPermission name="/role/addRole.shtml">
+				         		<a class="btn btn-success" onclick="$('#addrole').modal();">增加角色</a>
+				         	</@shiro.hasPermission>
+				         	<@shiro.hasPermission name="/role/deleteRoleById.shtml">
+				         		<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
@@ -112,7 +120,9 @@
 									<td>${it.name?default('-')}</td>
 									<td>${it.type?default('-')}</td>
 									<td>
-										<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
+										<@shiro.hasPermission name="/role/deleteRoleById.shtml">
+											<i class="glyphicon glyphicon-remove"></i><a href="javascript:deleteById([${it.id}]);">删除</a>
+							         	</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
@@ -131,34 +141,36 @@
 				</div>
 			</div><#--/row-->
 			
-			<#--弹框-->
-			<div class="modal fade" id="addrole" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
-			  <div class="modal-dialog" role="document">
-			    <div class="modal-content">
-			      <div class="modal-header">
-			        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-			        <h4 class="modal-title" id="addroleLabel">添加角色</h4>
-			      </div>
-			      <div class="modal-body">
-			        <form id="boxRoleForm">
-			          <div class="form-group">
-			            <label for="recipient-name" class="control-label">角色名称:</label>
-			            <input type="text" class="form-control" name="name" id="name" placeholder="请输入角色名称"/>
-			          </div>
-			          <div class="form-group">
-			            <label for="recipient-name" class="control-label">角色类型:</label>
-			            <input type="text" class="form-control" id="type" name="type"  placeholder="请输入角色类型  [字母 + 数字] 6位">
-			          </div>
-			        </form>
-			      </div>
-			      <div class="modal-footer">
-			        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-			        <button type="button" onclick="addRole();" class="btn btn-primary">Save</button>
-			      </div>
-			    </div>
-			  </div>
-			</div>
-			<#--/弹框-->
+			<@shiro.hasPermission name="/role/addRole.shtml">
+				<#--添加弹框-->
+				<div class="modal fade" id="addrole" tabindex="-1" role="dialog" aria-labelledby="addroleLabel">
+				  <div class="modal-dialog" role="document">
+				    <div class="modal-content">
+				      <div class="modal-header">
+				        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				        <h4 class="modal-title" id="addroleLabel">添加角色</h4>
+				      </div>
+				      <div class="modal-body">
+				        <form id="boxRoleForm">
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">角色名称:</label>
+				            <input type="text" class="form-control" name="name" id="name" placeholder="请输入角色名称"/>
+				          </div>
+				          <div class="form-group">
+				            <label for="recipient-name" class="control-label">角色类型:</label>
+				            <input type="text" class="form-control" id="type" name="type"  placeholder="请输入角色类型  [字母 + 数字] 6位">
+				          </div>
+				        </form>
+				      </div>
+				      <div class="modal-footer">
+				        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+				        <button type="button" onclick="addRole();" class="btn btn-primary">Save</button>
+				      </div>
+				    </div>
+				  </div>
+				</div>
+				<#--/添加弹框-->
+			</@shiro.hasPermission>
 			
 		</div>
 			

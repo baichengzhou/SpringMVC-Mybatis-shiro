@@ -16,7 +16,7 @@
 			so.init(function(){
 				//初始化全选。
 				so.checkBoxInit('#checkAll','[check=box]');
-				
+				<@shiro.hasPermission name="/member/deleteUserById.shtml">
 				//全选
 				so.id('deleteAll').on('click',function(){
 					var checkeds = $('[check=box]:checked');
@@ -29,7 +29,9 @@
 					});
 					return _delete(array);
 				});
+				</@shiro.hasPermission>
 			});
+			<@shiro.hasPermission name="/member/deleteUserById.shtml">
 			//根据ID数组，删除
 			function _delete(ids){
 				alert(ids);
@@ -49,6 +51,8 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
+			<@shiro.hasPermission name="/member/forbidUserById.shtml">
 			/*
 			*激活 | 禁止用户登录
 			*/
@@ -70,6 +74,7 @@
 					layer.close(index);
 				});
 			}
+			</@shiro.hasPermission>
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
@@ -89,7 +94,9 @@
 					      </div>
 					     <span class=""> <#--pull-right -->
 				         	<button type="submit" class="btn btn-primary">查询</button>
-				         	<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	<@shiro.hasPermission name="/member/deleteUserById.shtml">
+				         		<button type="button" id="deleteAll" class="btn  btn-danger">Delete</button>
+				         	</@shiro.hasPermission>
 				         </span>    
 				        </div>
 					<hr>
@@ -113,11 +120,15 @@
 									<td>${it.createTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>${it.lastLoginTime?string('yyyy-MM-dd HH:mm')}</td>
 									<td>
+										<@shiro.hasPermission name="/member/forbidUserById.shtml">
 										${(it.status==1)?string('<i class="glyphicon glyphicon-eye-close"></i>&nbsp;','<i class="glyphicon glyphicon-eye-open"></i>&nbsp;')}
 										<a href="javascript:forbidUserById(${(it.status==1)?string(0,1)},${it.id})">
 											${(it.status==1)?string('禁止登录','激活登录')}
 										</a>
+										</@shiro.hasPermission>
+										<@shiro.hasPermission name="/member/deleteUserById.shtml">
 										<a href="javascript:_delete([${it.id}]);">删除</a>
+										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
@@ -127,9 +138,11 @@
 							</tr>
 						</#if>
 					</table>
-					<div class="pagination pull-right">
-						${page.pageHtml}
-					</div>
+					<#if page?exists>
+						<div class="pagination pull-right">
+							${page.pageHtml}
+						</div>
+					</#if>
 					</form>
 				</div>
 			</div><#--/row-->

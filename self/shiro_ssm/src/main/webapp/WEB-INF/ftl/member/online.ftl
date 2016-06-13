@@ -13,9 +13,9 @@
 		<script  src="/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script  src="/js/shiro.demo.js"></script>
 		<script >
+			<@shiro.hasPermission name="/member/changeSessionStatus.shtml">
 			$(function(){
 				$("a[v=onlineDetails]").on('click',function(){
-					console.log(1)
 					var self = $(this);
 					var text = $.trim(self.text());
 					var index = layer.confirm("确定"+ text +"？",function(){
@@ -41,7 +41,7 @@
 					}		
 				},'json');
 			}
-			
+			</@shiro.hasPermission>
 			
 		</script>
 	</head>
@@ -86,7 +86,9 @@
 									<td>${(it.sessionStatus)?string('有效','已踢出')}</td>
 									<td>
 										<a href="/member/onlineDetails/${it.sessionId}.shtml">详情</a>
-										<a v="onlineDetails"href="javascript:void(0);" sessionId="${it.sessionId}" status="${(it.sessionStatus)?string(1,0)}">${(it.sessionStatus)?string('踢出','激活')}</a>
+										<@shiro.hasPermission name="/member/changeSessionStatus.shtml">
+											<a v="onlineDetails"href="javascript:void(0);" sessionId="${it.sessionId}" status="${(it.sessionStatus)?string(1,0)}">${(it.sessionStatus)?string('踢出','激活')}</a>
+										</@shiro.hasPermission>
 									</td>
 								</tr>
 							</#list>
