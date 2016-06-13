@@ -36,10 +36,11 @@
 				$.post("getPermissionTree.shtml",{},function(data){
 					layer.close(load);
 					$('#getPermissionTree').treeview({
-			           color: "#428bca",
+			          levels: 1,//层级
+			          color: "#428bca",
 			          nodeIcon: "glyphicon glyphicon-user",
-			          showTags: true,
-			          data: data
+			          showTags: true,//显示数量
+			          data: data//数据
 			        });
 				},'json');
 			});
