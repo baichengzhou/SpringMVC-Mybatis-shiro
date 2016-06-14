@@ -24,10 +24,10 @@ public class PermissionFilter extends AccessControlFilter {
 		Subject subject = getSubject(request, response);
 		for (String permission : arra) {
 			if(subject.isPermitted(permission)){
-				return true;
+				return Boolean.TRUE;
 			}
 		}
-		return false;
+		return Boolean.FALSE;
 	}
 
 	@Override
