@@ -133,6 +133,7 @@
     <bean id="shiroManager" class="com.sojson.core.shiro.service.impl.ShiroManagerImpl"/>
     <bean id="login" class="com.sojson.core.shiro.filter.LoginFilter"/>
     <bean id="role" class="com.sojson.core.shiro.filter.RoleFilter"/>
+    <bean id="permission" class="com.sojson.core.shiro.filter.PermissionFilter"/>
     <bean id="simple" class="com.sojson.core.shiro.filter.SimpleAuthFilter"/>
 	
 	
@@ -164,6 +165,7 @@
               <entry key="login" value-ref="login"></entry>
               <entry key="role" value-ref="role"></entry>
               <entry key="simple" value-ref="simple"></entry>
+              <entry key="permission" value-ref="permission"></entry>
            </util:map>
        </property>
 	</bean>

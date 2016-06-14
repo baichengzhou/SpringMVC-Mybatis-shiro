@@ -2,6 +2,7 @@ package com.sojson.core.shiro.filter;
 
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.shiro.subject.Subject;
@@ -19,13 +20,22 @@ public class PermissionFilter extends AccessControlFilter {
 	@Override
 	protected boolean isAccessAllowed(ServletRequest request,
 			ServletResponse response, Object mappedValue) throws Exception {
-		String[] arra = (String[])mappedValue;
 		
+		//先判断带参数的权限判断
 		Subject subject = getSubject(request, response);
-		for (String permission : arra) {
-			if(subject.isPermitted(permission)){
-				return Boolean.TRUE;
+		if(null != mappedValue){
+			String[] arra = (String[])mappedValue;
+			
+			for (String permission : arra) {
+				if(subject.isPermitted(permission)){
+					return Boolean.TRUE;
+				}
 			}
+		}
+		//取到请求的uri ，进行权限判断
+		String uri = ((HttpServletRequest)request).getRequestURI();
+		if(subject.isPermitted(uri)){
+			return Boolean.TRUE;
 		}
 		return Boolean.FALSE;
 	}

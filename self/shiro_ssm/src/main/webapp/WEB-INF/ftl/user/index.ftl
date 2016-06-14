@@ -42,7 +42,8 @@
 						</tr>
 					</table>
 				</div>
-			</div><#--/row-->
+			</div>
+			<#--/row-->
 		</div>
 			
 	</body>

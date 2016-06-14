@@ -19,6 +19,7 @@ import org.springframework.core.io.ClassPathResource;
 
 import com.sojson.common.utils.LoggerUtils;
 import com.sojson.common.utils.StringUtils;
+import com.sojson.core.config.INI4j;
 import com.sojson.core.shiro.service.ShiroManager;
 
 public class ShiroManagerImpl implements ShiroManager {
@@ -134,50 +135,31 @@ public class ShiroManagerImpl implements ShiroManager {
 	
 	/**
 	 * 从配额文件获取固定权限验证规则串
-	 * @author zhou-baicheng
-	 * @throws IOException 
-	 * @throws MalformedURLException 
 	 */
 	private String getFixedAuthRule(){
 		StringBuffer sb = new StringBuffer("");
-		ClassPathResource cp = new ClassPathResource("shiro_base_auth.properties");
-		Properties properties = new Properties();  
-		try { 
-			properties.load(cp.getInputStream());
+		ClassPathResource cp = new ClassPathResource("shiro_base_auth.ini");
+		INI4j ini = null;
+		try {
+			ini = new INI4j(cp.getFile());
 		} catch (IOException e) {
-			LoggerUtils.error(getClass(),"loadfixed_auth_res.properties error!", e);
-			throw new RuntimeException("load fixed_auth_res.properties error!");
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
-		Set<Object> set = properties.keySet();
-		List<Integer> keys = new LinkedList<Integer>();
-		for (Object object : set) {
-			if(!StringUtils.isBlank(object)){
-				keys.add(Integer.parseInt(object.toString()));
-			}
-		}
-		Collections.sort(keys);
-		
-//		for (Iterator<?> its = properties.keySet().iterator(); its.hasNext();) {
-//			String key = (String) its.next();
-//			sb.append(key).append(" = ").append(
-//					properties.getProperty(key).trim()).append(CRLF);
-//
-//		}
-		for (Integer key : keys) {
-			String value = (String) properties.get(key.toString());
-			if(value.contains("=")){
-				String varray [] = value.split("=");
-					sb.append(varray[0].trim()).append(" = ")
-								.append(varray[1].trim()).append(CRLF);
-			}
+		String section = "base_auth";
+		Set<String> keys = ini.get(section).keySet();
+		for (String key : keys) {
+			String value = ini.get(section, key);
+			sb.append(key).append(" = ")
+			.append(value).append(CRLF);
 		}
 		
 		return sb.toString();
 
 	}
 
-	@Override
 	// 此方法加同步锁
+	@Override
 	public synchronized void reCreateFilterChains() {
 //		ShiroFilterFactoryBean shiroFilterFactoryBean = (ShiroFilterFactoryBean) SpringContextUtil.getBean("shiroFilterFactoryBean");
 		AbstractShiroFilter shiroFilter = null;
