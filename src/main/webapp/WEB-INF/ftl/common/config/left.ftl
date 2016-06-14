@@ -19,44 +19,57 @@
 </div>
 </#macro>
 <#macro member index>
-<div id="one" class="col-md-2">
-	<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">
-	  <li class="${(index==1)?string('active',' ')}">
-	      <a href="/member/list.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>用户列表
-	      </a>
-	  </li>
-	  <li class="${(index==2)?string('active',' ')} dropdown">
-	      <a href="/member/online.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>在线用户
-	      </a>
-	  </li>
-	</ul>
-</div>
+	<@shiro.hasAnyRoles name='888888,100003'>          
+		<div  id="one" class="col-md-2">
+			<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">
+			  <li class="${(index==1)?string('active',' ')}">
+			      <a href="/member/list.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>用户列表
+			      </a>
+			  </li>
+			  <li class="${(index==2)?string('active',' ')} dropdown">
+			      <a href="/member/online.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>在线用户
+			      </a>
+			  </li>
+			</ul>
+		</div>
+	</@shiro.hasAnyRoles>         
 </#macro>
 <#macro role index>
-<div id="one" class="col-md-2">
-	<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">
-	  <li class="${(index==1)?string('active',' ')}">
-	      <a href="/role/index.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>角色列表
-	      </a>
-	  </li>
-	  <li class="${(index==2)?string('active',' ')} dropdown">
-	      <a href="/role/allocation.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>角色分配
-	      </a>
-	  </li>
-	  <li class="${(index==3)?string('active',' ')} dropdown">
-	      <a href="/permission/index.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限列表
-	      </a>
-	  </li>
-	  <li class="${(index==4)?string('active',' ')} dropdown">
-	      <a href="/permission/allocation.shtml">
-	    	 <i class="glyphicon glyphicon-chevron-right"></i>权限分配
-	      </a>
-	  </li>
-	</ul>
-</div>
+	<@shiro.hasAnyRoles name='888888,100003'>  
+		<div id="one" class="col-md-2">
+			<ul data-spy="affix" class="nav nav-list nav-tabs nav-stacked bs-docs-sidenav dropdown affix" style="top: 100px; z-index: 100;">
+			 
+			 <@shiro.hasPermission name="/role/index.shtml">
+			  <li class="${(index==1)?string('active',' ')}">
+			      <a href="/role/index.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>角色列表
+			      </a>
+			  </li>
+			  </@shiro.hasPermission>
+			 <@shiro.hasPermission name="/role/allocation.shtml">
+			  <li class="${(index==2)?string('active',' ')} dropdown">
+			      <a href="/role/allocation.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>角色分配
+			      </a>
+			  </li>
+			  </@shiro.hasPermission>
+			  <@shiro.hasPermission name="/permission/index.shtml">
+			  <li class="${(index==3)?string('active',' ')} dropdown">
+			      <a href="/permission/index.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>权限列表
+			      </a>
+			  </li>
+			  </@shiro.hasPermission>
+			  <@shiro.hasPermission name="/permission/allocation.shtml">
+			  <li class="${(index==4)?string('active',' ')} dropdown">
+			      <a href="/permission/allocation.shtml">
+			    	 <i class="glyphicon glyphicon-chevron-right"></i>权限分配
+			      </a>
+			  </li>
+			  </@shiro.hasPermission>
+			</ul>
+		</div>
+	</@shiro.hasAnyRoles>   
 </#macro>
