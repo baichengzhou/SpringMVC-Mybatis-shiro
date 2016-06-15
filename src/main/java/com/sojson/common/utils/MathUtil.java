@@ -3,13 +3,11 @@ package com.sojson.common.utils;
 import java.security.MessageDigest;
 import java.util.Random;
 
-import org.apache.log4j.Logger;
-
 public class MathUtil {
-	protected final static Logger logger = Logger.getLogger(MathUtil.class);
 	/**
-	 * 获取6-10 的随机位数数字
-	 * @return result
+	 * 获取随机的数值。
+	 * @param length	长度
+	 * @return
 	 */
 	public static String getRandom620(Integer length){
 	   String result = "";
@@ -32,7 +30,7 @@ public class MathUtil {
        return result;
 	}
 	/**
-	 * MD5
+	 * MD5 加密
 	 * @param str
 	 * @return
 	 * @throws Exception
@@ -44,8 +42,7 @@ public class MathUtil {
 					messageDigest.reset();
 					messageDigest.update(str.getBytes("UTF-8"));
 				} catch (Exception e) {
-					logger.error("MD5转换异常！message：" + e.getMessage());
-					e.printStackTrace();
+					LoggerUtils.fmtError(MathUtil.class,e, "MD5转换异常！message：%s", e.getMessage());
 				}  
 				
 	        byte[] byteArray = messageDigest.digest();  

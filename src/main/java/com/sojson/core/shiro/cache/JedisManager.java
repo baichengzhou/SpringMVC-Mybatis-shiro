@@ -15,8 +15,9 @@ import com.sojson.common.utils.SerializeUtil;
 
 /**
  * 
- * 开发公司：sojson.com<br/>
- * 版权：sojson.com<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
  * 
  * Redis Manager Utils
@@ -24,13 +25,11 @@ import com.sojson.common.utils.SerializeUtil;
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年4月29日 　<br/>
- * <p>
- * *******
- * <p>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
  * @author zhou-baicheng
- * @email  json@sojson.com
- * @version 1.0,2016年4月29日 <br/>
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
 public class JedisManager {
@@ -50,10 +49,16 @@ public class JedisManager {
     public void returnResource(Jedis jedis, boolean isBroken) {
         if (jedis == null)
             return;
-        if (isBroken)
+        /**
+         * @deprecated starting from Jedis 3.0 this method will not be exposed.
+         * Resource cleanup should be done using @see {@link redis.clients.jedis.Jedis#close()}
+        if (isBroken){
             getJedisPool().returnBrokenResource(jedis);
-        else
+        }else{
             getJedisPool().returnResource(jedis);
+        }
+        */
+        jedis.close();
     }
 
     public byte[] getValueByKey(int dbIndex, byte[] key) throws Exception {

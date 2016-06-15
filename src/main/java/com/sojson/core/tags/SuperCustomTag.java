@@ -2,30 +2,34 @@ package com.sojson.core.tags;
 
 import java.util.Map;
 
-import org.apache.log4j.Logger;
-
 import com.sojson.common.utils.StringUtils;
 /**
  * 
- * 开发公司：WENYIFAN.NET<br/>
- * 版权：WENYIFAN.NET<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
+ * 
+ *  自定义标签的父类。
  * 
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2014年5月13日 　<br/>
- * <p>
- *  自定义标签父类
- * <p>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
  * @author zhou-baicheng
- * 
- * @version 1.0,2014年5月13日 <br/>
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
 @SuppressWarnings("unchecked")
 public abstract class SuperCustomTag {
-	protected final static Logger logger = Logger.getLogger(SuperCustomTag.class);
+	
+	/**
+	 * 本方法采用多态集成的方式，然后用父类接收，用父类调用子类的 {@link result(...)} 方法。
+	 * @param params
+	 * @return
+	 */
 	protected abstract Object result(Map params);
 	
 	

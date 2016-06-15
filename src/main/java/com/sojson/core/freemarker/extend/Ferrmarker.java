@@ -11,9 +11,7 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
-import java.util.Properties;
 import java.util.Set;
-
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -50,7 +48,7 @@ import freemarker.template.TemplateModelException;
  * @version 1.0, 2013-6-08
  * 
  */
-@SuppressWarnings({ "deprecation", "unchecked"})
+@SuppressWarnings({  "unchecked"})
 public class Ferrmarker {
 	//HTML输出目录
 	protected static String HTML_PATH = UtilPath.getHTMLPath();

@@ -8,8 +8,9 @@ import com.sojson.core.shiro.cache.ShiroCacheManager;
 
 /**
  * 
- * 开发公司：itboy.net<br/>
- * 版权：itboy.net<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
  * 
  * JRedis管理
@@ -17,13 +18,11 @@ import com.sojson.core.shiro.cache.ShiroCacheManager;
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年5月6日 　<br/>
- * <p>
- * *******
- * <p>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
  * @author zhou-baicheng
- * @email  i@itboy.net
- * @version 1.0,2016年5月6日 <br/>
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
 public class JedisShiroCacheManager implements ShiroCacheManager {

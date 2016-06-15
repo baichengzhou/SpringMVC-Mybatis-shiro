@@ -32,6 +32,7 @@ import freemarker.template.TemplateModelException;
  * @version 1.0,2014年4月28日 <br/>
  * 
  */
+@SuppressWarnings("unchecked")
 public abstract class WYFTemplateModel implements TemplateDirectiveModel{
 
 	
@@ -40,7 +41,9 @@ public abstract class WYFTemplateModel implements TemplateDirectiveModel{
 			TemplateDirectiveBody body) throws TemplateException, IOException {
 		
 		
-//		//模版方法模式
+		/**
+		 * 模版方法模式，把变化委派下去，交给子类实现！
+		 */
 		Map<String, TemplateModel> paramWrap = putValue(params);
 		
 		
@@ -49,10 +52,11 @@ public abstract class WYFTemplateModel implements TemplateDirectiveModel{
 		FreemarkerTagUtil.clearTempleModel(env, paramWrap, origMap);
 	}
 
-	
-	protected abstract Map<String, TemplateModel> putValue(Map params) throws TemplateModelException;//{
-		//Map<String, TemplateModel> paramWrap = new HashMap<String, TemplateModel>(params);
-		//paramWrap.put(FreemarkerTagUtil.OUT_TAG_NAME, DEFAULT_WRAPPER.wrap(list));
-		//return null;
-	//}
+	/**
+	 * 子类实现
+	 * @param params
+	 * @return
+	 * @throws TemplateModelException
+	 */
+	protected abstract Map<String, TemplateModel> putValue(Map params) throws TemplateModelException;
 }

@@ -28,7 +28,6 @@ import sun.misc.BASE64Decoder;
  */
 public class StringUtils extends org.apache.commons.lang.StringUtils{
 	
-//	private final Logger logger = Logger.getLogger(getClass());
 	/**
 	 * 一次性判断多个或单个对象为空。
 	 * @param objects
@@ -315,7 +314,11 @@ public class StringUtils extends org.apache.commons.lang.StringUtils{
     	}
 		return false;
     }
-    
+    /**
+     * 去掉HTML代码
+     * @param news
+     * @return
+     */
     public static String removeHtml(String news) {
       String s = news.replaceAll("amp;", "").replaceAll("<","<").replaceAll(">", ">");
       

@@ -2,23 +2,23 @@ package com.sojson.common.utils;
 
 /**
  * 
- * 开发公司：九樱天下<br/>
- * 版权：九樱天下<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
+ * 
+ * Cookie工具
  * 
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　蒋飞　2014年6月19日 　<br/>
- * <p>
- * *******
- * <p>
- * @author jiang-fei
- * 
- * @version 1.0,2014年6月19日 <br/>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
+ * @author zhou-baicheng
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
-
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -110,7 +110,6 @@ public class CookieUtil {
 	 * @param request
 	 * @param name
 	 * @return String
-	 * @author JIANG FEI Jun 19, 2014 10:22:51 AM
 	 */
 	public static String findCookieByName(HttpServletRequest request,
 			String name) {

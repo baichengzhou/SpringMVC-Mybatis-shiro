@@ -24,7 +24,7 @@ public class FreeMarkerConfigExtend extends FreeMarkerConfigurer {
 		cfg.setNumberFormat("#");//防止页面输出数字,变成2,000
 	}
 	public static void putInitShared(Configuration cfg) throws TemplateModelException{
-		//shiro
+		//shiro tag 
         put(cfg,"shiro", new ShiroTags()); 
 	}
 }

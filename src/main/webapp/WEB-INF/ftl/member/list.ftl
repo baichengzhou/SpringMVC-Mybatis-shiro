@@ -34,7 +34,6 @@
 			<@shiro.hasPermission name="/member/deleteUserById.shtml">
 			//根据ID数组，删除
 			function _delete(ids){
-				alert(ids);
 				var index = layer.confirm("确定这"+ ids.length +"个用户？",function(){
 					var load = layer.load();
 					$.post('/member/deleteUserById.shtml',{ids:ids.join(',')},function(result){
