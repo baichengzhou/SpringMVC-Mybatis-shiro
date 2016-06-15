@@ -3,6 +3,8 @@ package com.sojson.core.config;
 import java.io.IOException;
 import java.util.Properties;
 
+import com.sojson.common.utils.LoggerUtils;
+
 public class QQConfig {
 
 	/**
@@ -30,7 +32,7 @@ public class QQConfig {
 		try {
 			prop.load(QQConfig.class.getResourceAsStream(FILE_NAME));
 		} catch (IOException e) {
-			e.printStackTrace();
+			LoggerUtils.fmtError(QQConfig.class,e, "加载文件异常，文件路径：%s", FILE_NAME);
 		}
 		
 	}

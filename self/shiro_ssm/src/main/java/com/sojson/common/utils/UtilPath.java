@@ -98,12 +98,8 @@ public class UtilPath {
 	 * @return
 	 */
 	public static  File[] getFiles(String path){
-		//List<String> list  = new ArrayList<String>();
 		  File file = new File(path);
 		  File[] files = file.listFiles();
-//		  for (File fl : files) {
-//			  list.add(fl.getName());
-//		  }
 		  return files;
 	}
 	/**
@@ -150,20 +146,6 @@ public class UtilPath {
 	 */
 	public static String getImages(){
 		return getRootPath() + "images/" ;
-	}
-	/**
-	 * 获取sitemap 路径
-	 * @return
-	 */
-	public static String getSiteMapPath(){
-		return getRootPath() + "txt/sitemap" ;
-	}
-	/**
-	 * 获取Txt 路径
-	 * @return
-	 */
-	public static String getTxt(){
-		return getRootPath() + "txt" ;
 	}
 	
 }

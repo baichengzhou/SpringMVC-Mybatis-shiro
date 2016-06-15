@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.web.servlet.view.freemarker.FreeMarkerView;
 
 import com.sojson.common.model.UUser;
+import com.sojson.common.utils.LoggerUtils;
 import com.sojson.core.shiro.token.manager.TokenManager;
 import com.sojson.core.statics.Constant;
 public class FreeMarkerViewExtend extends FreeMarkerView {
@@ -17,8 +18,7 @@ public class FreeMarkerViewExtend extends FreeMarkerView {
 		try {
 			super.exposeHelpers(model, request);
 		} catch (Exception e) {
-			e.printStackTrace();
-//			throw e;
+			LoggerUtils.fmtError(FreeMarkerViewExtend.class,e, "FreeMarkerViewExtend 加载父类出现异常。请检查。");
 		}
 		model.put(Constant.CONTEXT_PATH, request.getContextPath());
 		model.putAll(Ferrmarker.initMap);

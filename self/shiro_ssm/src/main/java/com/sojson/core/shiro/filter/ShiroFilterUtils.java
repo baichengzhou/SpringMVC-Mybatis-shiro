@@ -35,8 +35,12 @@ import net.sf.json.JSONObject;
  */
 public class ShiroFilterUtils {
 	final static Class<? extends ShiroFilterUtils> CLAZZ = ShiroFilterUtils.class;
-	
-	
+	//登录页面
+	static final String LOGIN_URL = "/u/login.shtml";
+	//踢出登录提示
+	final static String KICKED_OUT = "/open/kickedOut.shtml";
+	//没有权限提醒
+	final static String UNAUTHORIZED = "/open/unauthorized.shtml";
 	/**
 	 * 是否是Ajax请求
 	 * @param request
@@ -62,8 +66,10 @@ public class ShiroFilterUtils {
 		} catch (Exception e) {
 			LoggerUtils.fmtError(CLAZZ, e, "输出JSON报错。");
 		}finally{
-			out.flush();
-			out.close();
+			if(null != out){
+				out.flush();
+				out.close();
+			}
 		}
 	}
 }

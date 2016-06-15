@@ -12,10 +12,54 @@
 		<script  src="/js/common/layer/layer.js"></script>
 		<script  src="/js/common/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 		<script >
+		/*
+		function callResult(result){
+				console.log(result)
+			}
+		     
+		      $.ajax({
+				type:"get",
+				url: "http://123.57.163.79:9200/zhidao_index/zhidao_type/_search",//查询ES的URL
+				data:data,//查询ES的条件
+				dataType:"jsonp",//JSONP类型指定
+				jsonp:"callback",//默认callback
+				jsonpCallback:"callResult",//成功回调的方法
+				async: false,
+				beforeSend:function(){
+				},
+				success:function(result){
+				},
+				error:function(e){
+					console.log(e)
+				}
+			});
+			
+			
+		    var data ={query:{bool:{must:[{query_string:{default_field:"title",query:"新闻媒体"}}],must_not:[],should:[]}},from:0,size:10,sort:[],aggs:{}};
+			
+			
+			var searchData ={"query":{"match":{"title":"新闻"}},"highlight":{"pre_tags":["<strong>","<strong>"],"post_tags":["</strong>","</strong>"],"fields":{"title":{}}}};
+	     $.ajax({
+	          //url: "http://47.90.22.70:9200/nutch/doc/_search?q="+searchTxt+"&from=0&size=10",//查询ES的URL
+	          url: "http://47.90.22.70:9200/_search",//查询ES的URL
+	          type: "post",
+	          data :data,
+	          dataType:"json",//JSONP类型指定
+	          //jsonp:"callback",//默认callback
+	          //jsonpCallback:"callResult",//成功回调的方法
+	          //async: false,
+	          beforeSend:function(){
+	          },
+	          success:function(result){
+	              console.log(result)
+	             // showData(result)
+	             
+	
+	          }})
+				*/
 		</script>
 	</head>
 	<body data-target="#one" data-spy="scroll">
-		
 		<@_top.top 1/>
 		<div class="container" style="padding-bottom: 15px;min-height: 300px; margin-top: 40px;">
 			<div class="row">

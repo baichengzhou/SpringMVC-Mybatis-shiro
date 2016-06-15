@@ -20,8 +20,9 @@ import com.sojson.core.shiro.CustomShiroSessionDAO;
 import com.sojson.user.bo.UserOnlineBo;
 /**
  * 
- * 开发公司：itboy.net<br/>
- * 版权：itboy.net<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
  * 
  * 用户Session 手动管理
@@ -29,16 +30,14 @@ import com.sojson.user.bo.UserOnlineBo;
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2016年5月27日 　<br/>
- * <p>
- * *******
- * <p>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
  * @author zhou-baicheng
- * @email  i@itboy.net
- * @version 1.0,2016年5月27日 <br/>
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
-@SuppressWarnings("unchecked")
+
 public class CustomSessionManager {
 
 	/**
@@ -75,6 +74,7 @@ public class CustomSessionManager {
 	 * @param userIds	用户ID
 	 * @return
 	 */
+	@SuppressWarnings("unchecked")
 	public List<SimplePrincipalCollection> getSimplePrincipalCollectionByUserId(Long...userIds){
 		//把userIds 转成Set，好判断
 		Set<Long> idset = (Set<Long>) StringUtils.array2Set(userIds);
@@ -205,13 +205,6 @@ public class CustomSessionManager {
 			}
 		}
 	}
-	
-	
-	
-	
-	
-	
-	
 	public void setShiroSessionRepository(
 			ShiroSessionRepository shiroSessionRepository) {
 		this.shiroSessionRepository = shiroSessionRepository;
@@ -220,9 +213,4 @@ public class CustomSessionManager {
 	public void setCustomShiroSessionDAO(CustomShiroSessionDAO customShiroSessionDAO) {
 		this.customShiroSessionDAO = customShiroSessionDAO;
 	}
-
-	
-
-	
-	
 }

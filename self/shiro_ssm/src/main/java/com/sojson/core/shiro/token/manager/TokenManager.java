@@ -1,7 +1,5 @@
 package com.sojson.core.shiro.token.manager;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.shiro.SecurityUtils;

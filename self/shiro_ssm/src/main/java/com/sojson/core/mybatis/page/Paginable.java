@@ -2,20 +2,21 @@ package com.sojson.core.mybatis.page;
 
 /**
  * 
- * 开发公司：九樱天下<br/>
- * 版权：九樱天下<br/>
+ * 开发公司：SOJSON在线工具 <p>
+ * 版权所有：© www.sojson.com<p>
+ * 博客地址：http://www.sojson.com/blog/  <p>
  * <p>
+ * 
+ * 分页实体
  * 
  * <p>
  * 
  * 区分　责任人　日期　　　　说明<br/>
- * 创建　周柏成　2014年5月8日 　<br/>
- * <p>
- * 分页实体
- * <p>
+ * 创建　周柏成　2016年6月2日 　<br/>
+ *
  * @author zhou-baicheng
- * 
- * @version 1.0,2014年5月8日 <br/>
+ * @email  so@sojson.com
+ * @version 1.0,2016年6月2日 <br/>
  * 
  */
 public interface Paginable {
