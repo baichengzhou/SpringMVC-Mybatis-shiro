@@ -80,6 +80,12 @@ public class UserCoreController extends BaseController {
 				pswd = UserManager.md5Pswd(email, pswd);
 		UUser	user = userService.login(email, pswd);
 		
+		if("admin".equals(email)){
+			resultMap.put("status", 300);
+			resultMap.put("message", "管理员不准修改密码。");
+			return resultMap;
+		}
+		
 		if(null == user){
 			resultMap.put("status", 300);
 			resultMap.put("message", "密码不正确！");
