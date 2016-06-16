@@ -35,7 +35,7 @@ public class JedisShiroCache<K, V> implements Cache<K, V> {
 	/**
 	 * 为了不和其他的缓存混淆，采用追加前缀方式以作区分
 	 */
-    private static final String REDIS_SHIRO_CACHE = "shiro-cache:";
+    private static final String REDIS_SHIRO_CACHE = "shiro-demo-cache:";
     /**
      * Redis 分片(分区)，也可以在配置文件中配置
      */
