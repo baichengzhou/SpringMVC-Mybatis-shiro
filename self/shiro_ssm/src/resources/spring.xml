@@ -30,5 +30,6 @@
 	<import resource="spring-mybatis.xml"/>
 	<import resource="spring-cache.xml"/>
 	<import resource="spring-shiro.xml"/>
+	<import resource="spring-timer.xml"/>
 	
 </beans>

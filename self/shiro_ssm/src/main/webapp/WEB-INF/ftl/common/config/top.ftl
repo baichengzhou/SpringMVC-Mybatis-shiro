@@ -52,7 +52,7 @@
 								<li><a href="/role/index.shtml">角色列表</a></li>
 							</@shiro.hasPermission>
 							<@shiro.hasPermission name="/role/allocation.shtml">
-								<li><a href="/role/allocation.shtml">角色列表</a></li>
+								<li><a href="/role/allocation.shtml">角色分配</a></li>
 							</@shiro.hasPermission>
 							<@shiro.hasPermission name="/permission/index.shtml">
 								<li><a href="/permission/index.shtml">权限列表</a></li>

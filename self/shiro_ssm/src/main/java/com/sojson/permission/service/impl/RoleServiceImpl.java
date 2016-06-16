@@ -7,6 +7,7 @@ import java.util.Set;
 
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import com.sojson.common.dao.URoleMapper;
@@ -115,6 +116,14 @@ public class RoleServiceImpl extends BaseMybatisDao<URoleMapper> implements Role
 		Map<String,Object> map = new HashMap<String,Object>();
 		map.put("userId", TokenManager.getUserId());
 		return roleMapper.findNowAllPermission(map);
+	}
+	/**
+	 * 每20分钟执行一次
+	 */
+	@Override
+	@Scheduled(cron = "0 0/20 * * * ? ")
+	public void initData() {
+		roleMapper.initData();
 	}
 	
 }

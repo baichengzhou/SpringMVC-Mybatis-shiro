@@ -46,7 +46,10 @@ public class PermissionServiceImpl extends BaseMybatisDao<UPermissionMapper> imp
 
 	@Override
 	public UPermission insertSelective(UPermission record) {
+		//添加权限
 		permissionMapper.insertSelective(record);
+		//每添加一个权限，都往【系统管理员 	888888】里添加一次。保证系统管理员有最大的权限
+		addPermission2Role(new Long(1), String.valueOf(record.getId()));
 		return record;
 	}
 
