@@ -26,6 +26,25 @@
       </if>
       </where>
   </sql>
+  
+  <!-- ====================================		初始化数据（调用存储过程）	========================================= -->
+	<insert id="initData">
+		{call init_shiro_demo()}
+	</insert>
+  
+  <!-- ====================================		初始化数据（调用存储过程）	========================================= -->
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
   <select id="findRoleByUserId" resultType="java.lang.String">
   		select r.type from u_role r,u_user_role ur where ur.rid = r.id and ur.uid = #{id,jdbcType=BIGINT}
   </select>
@@ -78,10 +97,11 @@
     	<result column="url" property="url" jdbcType="VARCHAR" />
   	</collection>
   </resultMap>
+  <!-- 根据用户ID，查询所有权限 -->
   <select id="findNowAllPermission" resultMap="findNowAllPermission_resultMap">
-  	select ur.id,ur.name,ur.type ,up.id pid,up.url,up.name pname 
-		from u_role ur
-		left join (select rid from u_user_role where uid = #{userId,jdbcType=BIGINT}) uur on uur.rid = ur.id
+	select ur.id,ur.name,ur.type ,up.id pid,up.url,up.name pname 
+		from (select rid from u_user_role where uid = #{userId,jdbcType=BIGINT}) uur 
+		left join u_role ur on uur.rid = ur.id
 		left join u_role_permission urp on urp.rid = ur.id
 		left join u_permission up on up.id = urp.pid
   </select>

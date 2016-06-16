@@ -55,7 +55,7 @@
 								<li><a href="/role/index.shtml">角色列表</a></li>
 							</shiro:hasPermission>
 							<shiro:hasPermission name="/role/allocation.shtml">
-								<li><a href="/role/allocation.shtml">角色列表</a></li>
+								<li><a href="/role/allocation.shtml">角色分配</a></li>
 							</shiro:hasPermission>
 							<shiro:hasPermission name="/permission/index.shtml">
 								<li><a href="/permission/index.shtml">权限列表</a></li>
@@ -79,21 +79,23 @@
 	          </ul>
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown " style="color:#fff;">
-					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown"  
-						<c:choose>
-							<c:when test="token != null">
-								onclick="location.href='/user/index.shtml'" href="/user/index.shtml" class="dropdown-toggle qqlogin" > ${token.nickname}<span class="caret"></span></a>
-								<ul class="dropdown-menu" userid="${token.id}">
-									<li><a href="http://shiro.itboy.net/user/index.shtml">个人资料</a></li>
-									<li><a href="http://shiro.itboy.net/role/mypermission.shtml">我的权限</a></li>
-									<li><a href="javascript:void(0);" onclick="logout();">退出登录</a></li>
-								</ul>
-							</c:when>
-							<c:otherwise>
-								 href="javascript:void(0);" class="dropdown-toggle qqlogin" >
-								<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png">&nbsp;登录</a>
-							</c:otherwise>
-						</c:choose>
+					<%--已经登录（包括记住我的）--%>
+					<shiro:user>  
+						<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown" onclick="location.href='/user/index.shtml'" href="/user/index.shtml" class="dropdown-toggle qqlogin" > 
+						<shiro:principal property="nickname"/>
+						<span class="caret"></span></a>
+						<ul class="dropdown-menu" userid="<shiro:principal property="id"/>">
+							<li><a href="http://shiro.itboy.net/user/index.shtml">个人资料</a></li>
+							<li><a href="http://shiro.itboy.net/role/mypermission.shtml">我的权限</a></li>
+							<li><a href="javascript:void(0);" onclick="logout();">退出登录</a></li>
+						</ul>
+					</shiro:user>   
+
+					<%--没有登录(游客)--%>
+					<shiro:guest>  
+						 <a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown"  href="javascript:void(0);" class="dropdown-toggle qqlogin" >
+						<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png">&nbsp;登录</a>
+					</shiro:guest>  
 				</li>	
 	          </ul>
 	          <style>#topMenu>li>a{padding:10px 13px}</style>

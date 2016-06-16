@@ -33,6 +33,6 @@ public interface RoleService {
 	Set<String> findRoleByUserId(Long userId);
 
 	List<URole> findNowAllPermission();
-
-	
+	//初始化数据
+	void initData();
 }

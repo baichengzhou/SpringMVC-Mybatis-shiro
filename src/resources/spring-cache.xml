@@ -20,10 +20,16 @@
     </bean>
 
 	<bean id="jedisPool" class="redis.clients.jedis.JedisPool">
-		<constructor-arg index="0" ref="jedisPoolConfig"/>
-	    <constructor-arg index="2" value="6379"/><!-- 端口 -->
-	    <constructor-arg index="3" value="5000"/><!-- 超时 -->
-	    <constructor-arg index="1" value="127.0.0.1"/><!--Redis IP地址 -->
+<!--		<constructor-arg index="0" ref="jedisPoolConfig"/>-->
+<!--	    <constructor-arg index="2" value="6379"/>-->
+<!--	    <constructor-arg index="3" value="5000"/>-->
+<!--	    <constructor-arg index="1" value="127.0.0.1"/>-->
+	    
+	    <constructor-arg index="0" ref="jedisPoolConfig"/>
+        <constructor-arg index="2" value="6888"/>
+        <constructor-arg index="3" value="5000"/>
+        <constructor-arg index="4" value="www.sojson.com"/>
+        <constructor-arg index="1" value="123.57.163.79"/>
 	</bean>
 	
 </beans>
