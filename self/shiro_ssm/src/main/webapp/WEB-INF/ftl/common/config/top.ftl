@@ -77,7 +77,7 @@
 	           <ul class="nav navbar-nav  pull-right" >
 				<li class="dropdown ${(index==10)?string('active','')}" style="color:#fff;">
 					<a aria-expanded="false" aria-haspopup="true"  role="button" data-toggle="dropdown"  
-						<#if token?exists>
+						<@shiro.user>  
 							onclick="location.href='/user/index.shtml'" href="/user/index.shtml" class="dropdown-toggle qqlogin" >
 							${token.nickname?default('阿西吧')}<span class="caret"></span></a>
 							<ul class="dropdown-menu" userid="${token.id}">
@@ -85,11 +85,11 @@
 								<li><a href="http://shiro.itboy.net/role/mypermission.shtml">我的权限</a></li>
 								<li><a href="javascript:void(0);" onclick="logout();">退出登录</a></li>
 							</ul>
-							<#else>
+						</@shiro.user>  
+						<@shiro.guest>   
 							 href="javascript:void(0);" class="dropdown-toggle qqlogin" >
 							<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png">&nbsp;登录</a>
-						</#if>
-					
+						</@shiro.guest>  					
 				</li>	
 	          </ul>
 	          <style>#topMenu>li>a{padding:10px 13px}</style>
