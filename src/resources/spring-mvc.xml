@@ -71,7 +71,7 @@
 	
 	
 
-<!--	通用视图解析器-->
+	<!--===============通用视图解析器 begin===============-->
 	<bean id="viewResolverCommon"
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 		<property name="prefix" value="/WEB-INF/views/" />
@@ -90,7 +90,6 @@
 		class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
 		<property name="viewClass" value="com.sojson.core.freemarker.extend.FreeMarkerViewExtend" />
 		<!-- 把Freemarker 扩展一下，把相关属性加入进去。。。 -->
-<!--	<property name="viewClass" value="org.springframework.web.servlet.view.freemarker.FreeMarkerView" />-->
 		<property name="contentType" value="text/html; charset=utf-8" />
 		<property name="cache" value="true" />
 		<property name="suffix" value=".ftl" />
@@ -107,7 +106,7 @@
 
 
 
-	<!-- 配置freeMarker -->
+	<!-- 配置freeMarker 拓展-->
 	<bean id="freemarkerConfig"
 		class="com.sojson.core.freemarker.extend.FreeMarkerConfigExtend">
 		<property name="templateLoaderPath">
@@ -124,15 +123,15 @@
 		</property>
 		<property name="freemarkerSettings">
 			<props><!-- 315360000 -->
-				<prop key="template_update_delay">0</prop>
-				<prop key="defaultEncoding">UTF-8</prop>
-				<prop key="url_escaping_charset">UTF-8</prop>
-				<prop key="locale">zh_CN</prop>
-				<prop key="boolean_format">true,false</prop>
-				<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
-				<prop key="date_format">yyyy-MM-dd</prop>
-				<prop key="time_format">HH:mm:ss</prop>
-<!--				<prop key="number_format">0.######</prop>-->
+					<prop key="template_update_delay">0</prop>
+					<prop key="defaultEncoding">UTF-8</prop>
+					<prop key="url_escaping_charset">UTF-8</prop>
+					<prop key="locale">zh_CN</prop>
+					<prop key="boolean_format">true,false</prop>
+					<prop key="datetime_format">yyyy-MM-dd HH:mm:ss</prop>
+					<prop key="date_format">yyyy-MM-dd</prop>
+					<prop key="time_format">HH:mm:ss</prop>
+	<!--			<prop key="number_format">0.######</prop>-->
 				<prop key="number_format">#</prop>
 				<prop key="whitespace_stripping">true</prop>
 				<prop key="auto_import">
@@ -146,14 +145,13 @@
 		</property>
 	</bean>
 	<bean id="fmXmlEscape" class="freemarker.template.utility.XmlEscape"/>
-		
-	<!--  上传文件定义 -->
+	<!--===============通用视图解析器 end===============-->
+	
+	
+	<!--  上传文件定义大小 -->
 	<bean id="multipartResolver"
 		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
 		p:defaultEncoding="utf-8">
 		<property name="maxUploadSize" value="50048000" />	
 	</bean>
-	<task:executor id="executor" pool-size="5" />  
-    <task:scheduler id="scheduler" pool-size="10" />  
-    <task:annotation-driven executor="executor" scheduler="scheduler" />
 </beans>

@@ -55,6 +55,7 @@ public class LoginFilter  extends AccessControlFilter {
 	@Override
 	protected boolean onAccessDenied(ServletRequest request, ServletResponse response)
 			throws Exception {
+		//保存Request和Response 到登录后的链接
 		saveRequestAndRedirectToLogin(request, response);
 		return Boolean.FALSE ;
 	}

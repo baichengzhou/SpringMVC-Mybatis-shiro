@@ -52,7 +52,6 @@ public class CustomSessionManager {
 	
 	/**
 	 * 获取所有的有效Session用户
-	 * @param jedisShiroSessionRepository
 	 * @return
 	 */
 	public  List<UserOnlineBo> getAllUser() {
@@ -66,7 +65,6 @@ public class CustomSessionManager {
 				list.add(bo);
 			}
 		}
-		
 		return list;
 	}
 	/**
@@ -191,16 +189,22 @@ public class CustomSessionManager {
 	}
 	/**
 	 * 查询要禁用的用户是否在线。
-	 * @param id
-	 * @param status
+	 * @param id		用户ID
+	 * @param status	用户状态
 	 */
 	public void forbidUserById(Long id, Long status) {
+		//获取所有在线用户
 		for(UserOnlineBo bo : getAllUser()){
 			Long userId = bo.getId();
+			//匹配用户ID
 			if(userId.equals(id)){
+				//获取用户Session
 				Session session = shiroSessionRepository.getSession(bo.getSessionId());
+				//标记用户Session
 				SessionStatus sessionStatus = (SessionStatus) session.getAttribute(SESSION_STATUS);
+				//是否踢出 true:有效，false：踢出。
 				sessionStatus.setOnlineStatus(status.intValue() == 1);
+				//更新Session
 				customShiroSessionDAO.update(session);
 			}
 		}

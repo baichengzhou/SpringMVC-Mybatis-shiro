@@ -245,36 +245,41 @@
 		    <version>0.1</version>
 		</dependency>
 		<!-- freemarker + shiro（标签） begin -->
-		
-		
-		
-		<!-- shiro begin -->
 		<dependency>
 			<artifactId>quartz</artifactId>
 			<groupId>org.opensymphony.quartz</groupId>
 			<version>1.6.1</version>
 		</dependency>
 		<dependency>
+		    <groupId>org.apache.shiro</groupId>
+		    <artifactId>shiro-all</artifactId>
+		    <version>1.2.5</version>
+		</dependency>
+		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-core</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.5</version>
 		</dependency>
 		
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-web</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-quartz</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.5</version>
 		</dependency>
 		<dependency>
 			<groupId>org.apache.shiro</groupId>
 			<artifactId>shiro-spring</artifactId>
-			<version>1.2.2</version>
+			<version>1.2.5</version>
 		</dependency>
+		
+		
+		<!-- shiro begin -->
+		
 		<!-- shiro + ehcache jar
 		<dependency>
 			<artifactId>ehcache-core</artifactId>
