@@ -21,11 +21,9 @@
         <!--[if lt IE 9]>
             <script src="http://static.supportfolios.com/js/www/html5shiv.js"></script>
         <![endif]-->
-
     </head>
 
-    <body>
-
+    <body id="body">
         <div class="page-container" style="margin: 100px auto 0px;">
             <h1>Register</h1>
             <form id="_form" action="" method="post">
@@ -111,7 +109,6 @@
 			
 			});
         </script>
-
     </body>
 
 </html>

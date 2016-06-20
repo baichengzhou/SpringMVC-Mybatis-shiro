@@ -87,7 +87,7 @@
 							</ul>
 						</@shiro.user>  
 						<@shiro.guest>   
-							 href="javascript:void(0);" class="dropdown-toggle qqlogin" >
+							 href="javascript:void(0);" onclick="location.href='/u/login.shtml'" class="dropdown-toggle qqlogin" >
 							<img src="http://qzonestyle.gtimg.cn/qzone/vas/opensns/res/img/Connect_logo_1.png">&nbsp;登录</a>
 						</@shiro.guest>  					
 				</li>	
