@@ -4,6 +4,9 @@
 重要提醒
 使用前先看这个地址：http://www.sojson.com/shiro
 
+已经升级，并且解决部分BUG问题，新版本：https://github.com/baichengzhou/SpringMVC-Mybatis-Shiro-redis-0.2
+
+
 本教程包含的内容。
 
     SSM（SpringMVC + Spring + Mybatis）框架的增删改查（含分页），所以如果框架小白也是可以看看的。
